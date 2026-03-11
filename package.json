@@ -1,0 +1,9 @@
+{
+  "name": "skillcensus",
+  "version": "1.0.0",
+  "description": "SkillCensus — India's Open Human Talent Network. Mapping every skill in every district.",
+  "private": true,
+  "keywords": ["talent", "skills", "india", "map", "workforce"],
+  "author": "SkillCensus Team",
+  "license": "MIT"
+}
