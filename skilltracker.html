@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkillCensus — India's Human Talent Map</title>
+<title>SkillCensus â€” India's Human Talent Map</title>
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -95,7 +95,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .hero-map-wrap{position:relative;opacity:0;animation:fadeLeft 1s 0.4s forwards;}
 @keyframes fadeLeft{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
 .hero-map-frame{border:1px solid var(--border2);overflow:hidden;position:relative;height:520px;box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 0 1px var(--border);}
-.hero-map-frame::before{content:'LIVE MAP — INDIA TALENT DISTRIBUTION';position:absolute;top:12px;left:14px;font-size:0.6rem;letter-spacing:0.14em;color:var(--text3);z-index:10;text-transform:uppercase;}
+.hero-map-frame::before{content:'LIVE MAP â€” INDIA TALENT DISTRIBUTION';position:absolute;top:12px;left:14px;font-size:0.6rem;letter-spacing:0.14em;color:var(--text3);z-index:10;text-transform:uppercase;}
 .hero-map-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,7,13,0.3) 0%,transparent 30%,transparent 70%,rgba(4,7,13,0.5) 100%);pointer-events:none;z-index:5;}
 #heroMap{width:100%;height:100%;}
 .map-overlay-badge{position:absolute;bottom:14px;left:14px;z-index:10;background:rgba(4,7,13,0.85);border:1px solid var(--border2);padding:10px 14px;backdrop-filter:blur(10px);}
@@ -532,7 +532,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
   <div class="modal-box" id="modalBox">
     <div class="modal-header">
       <div class="modal-title" id="modalTitle">Profile</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()">âœ•</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
@@ -554,20 +554,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     </div>
     <div class="nav-actions">
       <button class="btn-ghost" onclick="showAuthPage('login')">Sign In</button>
-      <button class="btn-accent" onclick="showAuthPage('register')">Join Free →</button>
+      <button class="btn-accent" onclick="showAuthPage('register')">Join Free â†’</button>
       <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
   <!-- MOBILE OVERLAY -->
   <div class="mobile-overlay" id="mobileMenu">
-    <button class="mob-close" onclick="document.getElementById('mobileMenu').classList.remove('open')" aria-label="Close menu">✕</button>
+    <button class="mob-close" onclick="document.getElementById('mobileMenu').classList.remove('open')" aria-label="Close menu">âœ•</button>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showPage('landingPage')">Home</div>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showPage('landingPage');setTimeout(()=>document.querySelector('.features').scrollIntoView({behavior:'smooth'}),100)">How It Works</div>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('login')">Find Talent</div>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('register')">Register Skills</div>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('login')">Sign In</div>
-    <div class="mob-link" style="color:var(--accent)" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('register')">Join Free →</div>
+    <div class="mob-link" style="color:var(--accent)" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('register')">Join Free â†’</div>
   </div>
 
   <section class="hero">
@@ -576,10 +576,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <div class="hero-eyebrow">India's First Open Talent Network</div>
         <h1 class="hero-title">Every <span class="italic">skill.</span><br>Every <span class="orange">district.</span><br>Findable.</h1>
         <p class="hero-sub">
-          <strong>450 million</strong> skilled workers are invisible to opportunity in India. Welders, coders, nurses, artisans — they exist everywhere. SkillCensus makes them discoverable. <strong>No middlemen. No fees. Ever.</strong>
+          <strong>450 million</strong> skilled workers are invisible to opportunity in India. Welders, coders, nurses, artisans â€” they exist everywhere. SkillCensus makes them discoverable. <strong>No middlemen. No fees. Ever.</strong>
         </p>
         <div class="hero-ctas">
-          <button class="btn-primary-lg" onclick="showAuthPage('register')">Register Your Skills →</button>
+          <button class="btn-primary-lg" onclick="showAuthPage('register')">Register Your Skills â†’</button>
           <button class="btn-outline-lg" onclick="showAuthPage('login')">Find Talent Near Me</button>
         </div>
         <div class="hero-stats">
@@ -599,7 +599,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           </div>
           <div class="h-stat-divider"></div>
           <div class="h-stat">
-            <div class="h-stat-num">₹0</div>
+            <div class="h-stat-num">â‚¹0</div>
             <div class="h-stat-label">Forever Free</div>
           </div>
         </div>
@@ -624,37 +624,37 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-num">01</div>
-          <div class="feature-icon">🗺️</div>
+          <div class="feature-icon">ðŸ—ºï¸</div>
           <div class="feature-title">Real-Time Talent Map</div>
           <div class="feature-desc">Live Leaflet map showing skill clusters across every district. Zoom to your street. See who has what skill, right now, near you.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">02</div>
-          <div class="feature-icon">💬</div>
+          <div class="feature-icon">ðŸ’¬</div>
           <div class="feature-title">Built-in Secure Chat</div>
           <div class="feature-desc">Connect and communicate directly on-platform. Share contact details only when both parties agree. No cold calls, no spam.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">03</div>
-          <div class="feature-icon">✅</div>
+          <div class="feature-icon">âœ…</div>
           <div class="feature-title">Skill Verification</div>
-          <div class="feature-desc">Government certificate uploads, peer endorsements, and employer references — multiple layers of trust you can rely on.</div>
+          <div class="feature-desc">Government certificate uploads, peer endorsements, and employer references â€” multiple layers of trust you can rely on.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">04</div>
-          <div class="feature-icon">📊</div>
+          <div class="feature-icon">ðŸ“Š</div>
           <div class="feature-title">Personal Dashboard</div>
-          <div class="feature-desc">Track your profile views, incoming requests, conversation history, and skill demand trends — all in one place.</div>
+          <div class="feature-desc">Track your profile views, incoming requests, conversation history, and skill demand trends â€” all in one place.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">05</div>
-          <div class="feature-icon">🌐</div>
+          <div class="feature-icon">ðŸŒ</div>
           <div class="feature-title">Works for Everyone</div>
           <div class="feature-desc">Optimized for 2G. Available in 10 Indian languages. Designed for the 95% that LinkedIn never reached.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">06</div>
-          <div class="feature-icon">🔒</div>
+          <div class="feature-icon">ðŸ”’</div>
           <div class="feature-title">Privacy First</div>
           <div class="feature-desc">Your phone number and personal details stay hidden until YOU choose to share them. Full control, always.</div>
         </div>
@@ -667,7 +667,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     <div class="footer-inner">
       <div>
         <div class="footer-brand">SkillCensus</div>
-        <div class="footer-desc">India's first open talent network. Connecting 450 million skilled workers with opportunity — no middlemen, no fees, ever.</div>
+        <div class="footer-desc">India's first open talent network. Connecting 450 million skilled workers with opportunity â€” no middlemen, no fees, ever.</div>
       </div>
       <div>
         <div class="footer-heading">Platform</div>
@@ -692,11 +692,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 SkillCensus. Made with ❤️ for India.</span>
+      <span>Â© 2026 SkillCensus. Made with â¤ï¸ for India.</span>
       <div class="footer-social">
-        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Twitter">ð•</a>
         <a href="#" aria-label="LinkedIn">in</a>
-        <a href="#" aria-label="GitHub">⌘</a>
+        <a href="#" aria-label="GitHub">âŒ˜</a>
       </div>
     </div>
   </footer>
@@ -723,12 +723,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         </div>
         <div class="auth-form-group">
           <label class="auth-label">Password</label>
-          <input class="auth-input" id="loginPass" type="password" placeholder="••••••••">
+          <input class="auth-input" id="loginPass" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
         </div>
-        <button class="auth-submit" onclick="handleLogin()">Sign In →</button>
+        <button class="auth-submit" onclick="handleLogin()">Sign In â†’</button>
         <div class="auth-divider" id="demoDivider" style="display:none">or</div>
-        <button class="btn-ghost" id="demoBtn" style="width:100%;padding:11px;margin-bottom:8px;display:none" onclick="loadSampleData()">🎯 Load Sample Data</button>
-        <div class="auth-note">Don't have an account? <a onclick="switchAuthTab('register')">Create one free →</a></div>
+        <button class="btn-ghost" id="demoBtn" style="width:100%;padding:11px;margin-bottom:8px;display:none" onclick="loadSampleData()">ðŸŽ¯ Load Sample Data</button>
+        <div class="auth-note">Don't have an account? <a onclick="switchAuthTab('register')">Create one free â†’</a></div>
       </div>
 
       <!-- REGISTER FORM -->
@@ -736,11 +736,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <div class="auth-label" style="margin-bottom:10px">I am a...</div>
         <div class="role-select" id="roleSelect">
           <div class="role-option selected" data-role="talent" onclick="selectRole(this)">
-            <span class="role-icon">🧑‍🔧</span>
+            <span class="role-icon">ðŸ§‘â€ðŸ”§</span>
             <div class="role-name">Talent Provider<br><span style="color:var(--text3);font-size:0.6rem">I have skills to offer</span></div>
           </div>
           <div class="role-option" data-role="seeker" onclick="selectRole(this)">
-            <span class="role-icon">🏢</span>
+            <span class="role-icon">ðŸ¢</span>
             <div class="role-name">Talent Seeker<br><span style="color:var(--text3);font-size:0.6rem">I need to hire / connect</span></div>
           </div>
         </div>
@@ -784,8 +784,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           <div class="pw-strength-label" id="pwLabel"></div>
           <div class="field-error" id="errRegPass"></div>
         </div>
-        <button class="auth-submit" onclick="handleRegister()">Create Account →</button>
-        <div class="auth-note">Already have an account? <a onclick="switchAuthTab('login')">Sign in →</a></div>
+        <button class="auth-submit" onclick="handleRegister()">Create Account â†’</button>
+        <div class="auth-note">Already have an account? <a onclick="switchAuthTab('login')">Sign in â†’</a></div>
       </div>
     </div>
   </div>
@@ -801,7 +801,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       SkillCensus
     </div>
     <div class="sidebar-user">
-      <div class="user-avatar" id="sidebarAvatar">👤</div>
+      <div class="user-avatar" id="sidebarAvatar">ðŸ‘¤</div>
       <div class="user-info">
         <div class="user-name" id="sidebarName">User</div>
         <div class="user-role" id="sidebarRole">Talent</div>
@@ -810,36 +810,36 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     <div class="sidebar-nav">
       <div class="nav-section-label">Main</div>
       <div class="sidebar-item active" onclick="showDashSection('overview',this)">
-        <span class="s-icon">⬡</span> Overview
+        <span class="s-icon">â¬¡</span> Overview
       </div>
       <div class="sidebar-item" onclick="showDashSection('map',this)">
-        <span class="s-icon">🗺</span> Talent Map
+        <span class="s-icon">ðŸ—º</span> Talent Map
       </div>
       <div class="sidebar-item" onclick="showDashSection('discover',this)">
-        <span class="s-icon">🔍</span> Discover
+        <span class="s-icon">ðŸ”</span> Discover
       </div>
       <div class="sidebar-item" onclick="showDashSection('chat',this)">
-        <span class="s-icon">💬</span> Messages
+        <span class="s-icon">ðŸ’¬</span> Messages
         <span class="s-badge" id="msgBadge">3</span>
       </div>
       <div class="nav-section-label">My Account</div>
       <div class="sidebar-item" onclick="showDashSection('profile',this)">
-        <span class="s-icon">👤</span> My Profile
+        <span class="s-icon">ðŸ‘¤</span> My Profile
       </div>
       <div class="sidebar-item" onclick="showDashSection('connections',this)">
-        <span class="s-icon">🔗</span> Connections
+        <span class="s-icon">ðŸ”—</span> Connections
       </div>
     </div>
     <div class="sidebar-bottom">
       <div class="theme-toggle" onclick="toggleTheme()">
-        <span class="t-icon" id="themeIcon">🌙</span>
+        <span class="t-icon" id="themeIcon">ðŸŒ™</span>
         <span id="themeLabel">Dark Mode</span>
       </div>
       <div class="sidebar-item" onclick="exportProfile()" style="margin-top:4px">
-        <span class="s-icon">📥</span> Export Profile
+        <span class="s-icon">ðŸ“¥</span> Export Profile
       </div>
       <div class="sidebar-item" onclick="logout()" style="color:var(--accent2)">
-        <span class="s-icon">⬡</span> Sign Out
+        <span class="s-icon">â¬¡</span> Sign Out
       </div>
     </div>
   </div>
@@ -849,7 +849,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     <div class="dash-topbar">
       <div class="topbar-title" id="topbarTitle">Overview</div>
       <div class="topbar-right" style="position:relative">
-        <button class="notif-btn" onclick="toggleNotifPanel()" aria-label="Notifications">🔔<div class="notif-dot" id="notifDot"></div></button>
+        <button class="notif-btn" onclick="toggleNotifPanel()" aria-label="Notifications">ðŸ””<div class="notif-dot" id="notifDot"></div></button>
         <div class="notif-panel" id="notifPanel">
           <div class="notif-header">Notifications <button class="notif-clear" onclick="clearNotifs()">Clear All</button></div>
           <div id="notifList"></div>
@@ -866,17 +866,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           <div class="stat-card" style="cursor:pointer" onclick="showDashSection('profile',document.querySelector('[onclick*=profile]'))">
             <div class="sc-label">Profile Views</div>
             <div class="sc-value" style="color:var(--accent)" id="ov-views">0</div>
-            <div class="sc-change">↑ 24% this week</div>
+            <div class="sc-change">â†‘ 24% this week</div>
           </div>
           <div class="stat-card" style="cursor:pointer" onclick="showDashSection('discover',document.querySelector('[onclick*=discover]'))">
             <div class="sc-label">Incoming Requests</div>
             <div class="sc-value" style="color:var(--gold)" id="ov-req">0</div>
-            <div class="sc-change">↑ 3 new today</div>
+            <div class="sc-change">â†‘ 3 new today</div>
           </div>
           <div class="stat-card">
             <div class="sc-label">Connections</div>
             <div class="sc-value" style="color:var(--accent3)" id="ov-conn">0</div>
-            <div class="sc-change">↑ 5 this month</div>
+            <div class="sc-change">â†‘ 5 this month</div>
           </div>
           <div class="stat-card">
             <div class="sc-label">Messages</div>
@@ -888,7 +888,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <!-- Mini map -->
         <div class="map-section-wrap" style="margin-bottom:28px">
           <div class="map-section-header">
-            <div class="map-section-title">🗺 Talent Near You — Live</div>
+            <div class="map-section-title">ðŸ—º Talent Near You â€” Live</div>
             <div class="map-controls">
               <button class="map-ctrl-btn active" onclick="filterMapCategory('all',this)">All</button>
               <button class="map-ctrl-btn" onclick="filterMapCategory('tech',this)">Tech</button>
@@ -903,7 +903,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <div class="map-section-wrap">
           <div class="map-section-header">
             <div>
-              <div class="map-section-title">📈 Trending Skills This Month</div>
+              <div class="map-section-title">ðŸ“ˆ Trending Skills This Month</div>
               <div style="font-size:0.65rem;color:var(--text3);margin-top:2px">Most searched across India</div>
             </div>
           </div>
@@ -920,7 +920,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       <div class="dash-section" id="sec-map">
         <div class="section-header">
           <div>
-            <div class="section-h-title">Talent Map — India</div>
+            <div class="section-h-title">Talent Map â€” India</div>
             <div class="section-h-sub">Click any marker to view profile</div>
           </div>
         </div>
@@ -947,7 +947,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         </div>
         <div class="search-filter-bar">
           <div class="s-input-wrap">
-            <span class="s-icon-abs">🔍</span>
+            <span class="s-icon-abs">ðŸ”</span>
             <input class="s-input" id="discoverSearch" placeholder="Search by skill, name, or location..." oninput="filterTalents()">
           </div>
           <select class="filter-select" id="discoverCat" onchange="filterTalents()">
@@ -978,7 +978,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       <div class="dash-section" id="sec-chat" style="padding:0;margin:-28px">
         <div class="chat-layout">
           <div class="chat-list">
-            <div class="chat-list-header">💬 Messages</div>
+            <div class="chat-list-header">ðŸ’¬ Messages</div>
             <div class="chat-search">
               <input class="chat-search-input" placeholder="Search conversations..." oninput="filterChats(this.value)">
             </div>
@@ -986,7 +986,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           </div>
           <div class="chat-window" id="chatWindow">
             <div class="chat-empty" id="chatEmpty">
-              <div class="chat-empty-icon">💬</div>
+              <div class="chat-empty-icon">ðŸ’¬</div>
               <div class="chat-empty-text">Select a conversation</div>
             </div>
             <!-- Active chat injected here -->
@@ -1002,10 +1002,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <div class="profile-wrap">
           <div>
             <div class="profile-card">
-              <div class="profile-avatar-lg" id="profileAvatar">👤</div>
-              <div class="profile-name-lg" id="profileName">—</div>
-              <div class="profile-role-lg" id="profileRole">—</div>
-              <div class="profile-loc-lg" id="profileLoc">—</div>
+              <div class="profile-avatar-lg" id="profileAvatar">ðŸ‘¤</div>
+              <div class="profile-name-lg" id="profileName">â€”</div>
+              <div class="profile-role-lg" id="profileRole">â€”</div>
+              <div class="profile-loc-lg" id="profileLoc">â€”</div>
               <div class="completion-bar-wrap" id="completionWrap"></div>
               <div class="profile-stats-row">
                 <div class="ps-item"><div class="ps-val" id="pViews">142</div><div class="ps-lbl">Views</div></div>
@@ -1033,6 +1033,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
                 <input class="auth-input" id="editDistrict" placeholder="e.g. Coimbatore">
               </div>
               <div class="auth-form-group">
+                <label class="auth-label">Map Location</label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                  <input class="auth-input" id="editLat" placeholder="Latitude">
+                  <input class="auth-input" id="editLng" placeholder="Longitude">
+                </div>
+                <button class="btn-ghost" style="margin-top:8px" onclick="useMyLocation()">Use My Current Location</button>
+              </div>
+              <div class="auth-form-group">
                 <label class="auth-label">Skills (comma separated)</label>
                 <input class="auth-input" id="editSkills" placeholder="e.g. Welding, MIG/TIG, Blueprint Reading">
               </div>
@@ -1048,7 +1056,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
                   <option value="no">Not Available</option>
                 </select>
               </div>
-              <button class="auth-submit" onclick="saveProfile()">Save Changes →</button>
+              <button class="auth-submit" onclick="saveProfile()">Save Changes â†’</button>
             </div>
           </div>
         </div>
@@ -1064,7 +1072,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         </div>
         <div class="conn-search">
           <div class="s-input-wrap">
-            <span class="s-icon-abs">🔍</span>
+            <span class="s-icon-abs">ðŸ”</span>
             <input class="s-input" id="connSearch" placeholder="Search connections..." oninput="filterConnections()">
           </div>
         </div>
@@ -1075,887 +1083,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
   </div>
 </div>
 
-<script>
-// ===================== STATE =====================
-let currentUser = null;
-let activeChatId = null;
-let dashMapObj = null;
-let fullMapObj = null;
-let heroMapObj = null;
-let allMarkers = [];
-let fullMarkers = [];
-let discoverPage = 0;
-const DISCOVER_PER_PAGE = 6;
-let skillEndorsements = {};
-let notifications = [];
-let TALENTS = [];
-let conversations = [];
-let myConnections = [];
-let TRENDING = [];
-let allUsers = [];
-
-const ROLE_LABELS = { talent: '\u{1F9D1}\u200D\u{1F527} Talent Provider', seeker: '\u{1F3E2} Talent Seeker' };
-
-// ===================== PERSISTENCE =====================
-function persistState() {
-  try {
-    localStorage.setItem('sc_user', JSON.stringify(currentUser));
-    localStorage.setItem('sc_convos', JSON.stringify(conversations));
-    localStorage.setItem('sc_conns', JSON.stringify(myConnections.map(c=>c.id)));
-    localStorage.setItem('sc_endorse', JSON.stringify(skillEndorsements));
-    localStorage.setItem('sc_notifs', JSON.stringify(notifications));
-    localStorage.setItem('sc_talents', JSON.stringify(TALENTS));
-    localStorage.setItem('sc_all_users', JSON.stringify(allUsers));
-  } catch(e) {}
-}
-function restoreState() {
-  try {
-    const au = localStorage.getItem('sc_all_users');
-    if (au) allUsers = JSON.parse(au);
-    const tal = localStorage.getItem('sc_talents');
-    if (tal) TALENTS = JSON.parse(tal);
-    
-    if (TALENTS.length === 0) {
-      if(document.getElementById('demoDivider')) document.getElementById('demoDivider').style.display = 'flex';
-      if(document.getElementById('demoBtn')) document.getElementById('demoBtn').style.display = 'block';
-    }
-
-    const u = localStorage.getItem('sc_user');
-    if (u) currentUser = JSON.parse(u);
-    const c = localStorage.getItem('sc_convos');
-    if (c) conversations = JSON.parse(c);
-    const cn = localStorage.getItem('sc_conns');
-    if (cn) { const ids = JSON.parse(cn); myConnections = TALENTS.filter(t => ids.includes(t.id)); }
-    const e = localStorage.getItem('sc_endorse');
-    if (e) skillEndorsements = JSON.parse(e);
-    const n = localStorage.getItem('sc_notifs');
-    if (n) notifications = JSON.parse(n);
-    const theme = localStorage.getItem('sc_theme');
-    if (theme) { document.documentElement.setAttribute('data-theme', theme); updateThemeUI(theme); }
-    
-    updateTrendingStats();
-  } catch(e) {}
-}
-
-const CAT_COLORS = {tech:'#00d4ff',trade:'#ff5733',health:'#00ff88',agri:'#f5c842',edu:'#c084fc',creative:'#f472b6'};
-
-function loadSampleData() {
-  TALENTS = [
-    {id:1,name:'Arjun Mehta',emoji:'👨‍💻',location:'Pune, Maharashtra',lat:18.5204,lng:73.8567,skills:['Rust','Systems Programming','Linux Kernel','Go'],primary:'Systems Developer',exp:'6 yrs',verify:'peer',avail:'open',category:'tech',bio:'Systems programmer with 6 years building low-latency infrastructure. Open to remote or Pune-based.',views:214,rating:4.9},
-    {id:2,name:'Lakshmi Devi',emoji:'🧵',location:'Coimbatore, Tamil Nadu',lat:11.0168,lng:76.9558,skills:['Kanjivaram Silk','Embroidery','Zari Work','Pattern Design'],primary:'Master Weaver',exp:'22 yrs',verify:'gov',avail:'busy',category:'trade',bio:'22 years of Kanjivaram silk weaving. Government-certified master craftsperson.',views:88,rating:5.0},
-    {id:3,name:'Ramesh Patil',emoji:'⚡',location:'Nagpur, Maharashtra',lat:21.1458,lng:79.0882,skills:['Industrial Wiring','PLC Systems','HVAC','Electrical Safety'],primary:'Certified Electrician',exp:'11 yrs',verify:'gov',avail:'open',category:'trade',bio:'ITI-certified electrician specializing in industrial and commercial projects.',views:176,rating:4.7},
-    {id:4,name:'Priya Nair',emoji:'🩺',location:'Thrissur, Kerala',lat:10.5276,lng:76.2144,skills:['Phlebotomy','Haematology','Clinical Lab','Blood Banking'],primary:'Lab Technician',exp:'4 yrs',verify:'gov',avail:'open',category:'health',bio:'DMLT certified with hands-on experience in government hospital labs.',views:93,rating:4.8},
-    {id:5,name:'Vikram Singh',emoji:'🔧',location:'Jaipur, Rajasthan',lat:26.9124,lng:75.7873,skills:['CNC Machining','Lathe','CAD/CAM','Precision Work'],primary:'CNC Machinist',exp:'9 yrs',verify:'peer',avail:'open',category:'trade',bio:'Precision machinist worked on aerospace component manufacturing.',views:142,rating:4.6},
-    {id:6,name:'Sunita Kumari',emoji:'🌾',location:'Patna, Bihar',lat:25.5941,lng:85.1376,skills:['Organic Farming','Drip Irrigation','Soil Science','Crop Planning'],primary:'Agricultural Expert',exp:'15 yrs',verify:'self',avail:'open',category:'agri',bio:'Pioneered organic farming methods. Teaches sustainable agriculture to rural groups.',views:67,rating:4.5},
-    {id:7,name:'Deepak Sharma',emoji:'☀️',location:'Indore, MP',lat:22.7196,lng:75.8577,skills:['Solar Install','Off-grid Systems','MPPT Controllers','Battery Banks'],primary:'Solar Technician',exp:'5 yrs',verify:'peer',avail:'open',category:'trade',bio:'Installed 300+ solar systems across MP and Rajasthan.',views:118,rating:4.7},
-    {id:8,name:'Anjali Bose',emoji:'🎨',location:'Kolkata, West Bengal',lat:22.5726,lng:88.3639,skills:['UI/UX Design','Figma','Illustration','Motion Design'],primary:'UI/UX Designer',exp:'3 yrs',verify:'peer',avail:'busy',category:'creative',bio:'Product designer with fine arts background. Accessible, culturally-resonant design.',views:201,rating:4.9},
-    {id:9,name:'Mohammed Irfan',emoji:'🏗️',location:'Hyderabad, Telangana',lat:17.3850,lng:78.4867,skills:['Structural Welding','MIG/TIG','Blueprint Reading','NDT Testing'],primary:'Senior Welder',exp:'14 yrs',verify:'gov',avail:'open',category:'trade',bio:'NDT Level-II certified structural welder. Bridges and industrial plants.',views:155,rating:4.8},
-    {id:10,name:'Kavitha Rajan',emoji:'🧑‍🏫',location:'Chennai, Tamil Nadu',lat:13.0827,lng:80.2707,skills:['Special Education','Child Psychology','Tamil Medium','Learning Disabilities'],primary:'Special Educator',exp:'8 yrs',verify:'gov',avail:'open',category:'edu',bio:'Trained special educator for children with learning disabilities.',views:79,rating:5.0},
-    {id:11,name:'Santosh Yadav',emoji:'🔩',location:'Lucknow, UP',lat:26.8467,lng:80.9462,skills:['Plumbing','Sanitation','Water Treatment','CPVC/UPVC'],primary:'Master Plumber',exp:'18 yrs',verify:'gov',avail:'no',category:'trade',bio:'18 years commercial and residential plumbing. Currently unavailable until April.',views:44,rating:4.5},
-    {id:12,name:'Fatima Sheikh',emoji:'🧑‍⚕️',location:'Surat, Gujarat',lat:21.1702,lng:72.8311,skills:['ICU Nursing','Ventilator Op','Wound Management','Critical Care'],primary:'ICU Nurse',exp:'7 yrs',verify:'gov',avail:'open',category:'health',bio:'ICU nurse with ventilator operation certification. Available for placement.',views:130,rating:4.9},
-  ];
-  myConnections = [TALENTS[0], TALENTS[2], TALENTS[8]];
-  allUsers = [
-    {email: 'demo@demo.com', pass: 'demo123', name: 'Demo User', role: 'talent', emoji: '👤', state: 'Maharashtra', district: 'Mumbai', skills: [], bio: '', avail: 'open', views: 0, rating: 5.0}
-  ];
-  
-  if(document.getElementById('demoDivider')) document.getElementById('demoDivider').style.display = 'none';
-  if(document.getElementById('demoBtn')) document.getElementById('demoBtn').style.display = 'none';
-  
-  updateTrendingStats();
-  persistState();
-  showToast('Sample data loaded!', 'success');
-  
-  if(currentUser) { showDash(); } else { initHeroMap(); }
-}
-
-// ===================== PAGE MANAGEMENT =====================
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => { p.classList.remove('active','page-transition'); p.style.display='none'; });
-  const el = document.getElementById(id);
-  el.style.display = id === 'authPage' ? 'flex' : id === 'dashPage' ? 'flex' : 'block';
-  el.classList.add('active','page-transition');
-  if (id === 'landingPage') initHeroMap();
-  window.scrollTo(0,0);
-}
-
-function showAuthPage(tab) {
-  showPage('authPage');
-  switchAuthTab(tab);
-}
-
-function showDash() {
-  showPage('dashPage');
-  setTimeout(() => {
-    initDashMap();
-    renderTalentGrid();
-    renderChatList();
-    renderTrendingTable();
-    renderConnections();
-    updateProfileUI();
-    animateOverviewStats();
-    renderNotifList();
-  }, 100);
-}
-
-// ===================== AUTH =====================
-let selectedRole = 'talent';
-function selectRole(el) {
-  document.querySelectorAll('.role-option').forEach(r => r.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedRole = el.dataset.role;
-  document.getElementById('skillCatGroup').style.display = selectedRole === 'talent' ? 'block' : 'none';
-}
-
-function switchAuthTab(tab) {
-  document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-  document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
-  document.getElementById('loginTab').classList.toggle('active', tab === 'login');
-  document.getElementById('registerTab').classList.toggle('active', tab === 'register');
-}
-
-function showFieldError(inputId, msg) {
-  const el = document.getElementById(inputId);
-  if (el) { el.classList.add('error'); setTimeout(()=>el.classList.remove('error'),600); }
-}
-
-function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-
-function checkPwStrength(v) {
-  const bar = document.getElementById('pwBar');
-  const label = document.getElementById('pwLabel');
-  if (!bar || !label) return;
-  let score = 0;
-  if (v.length >= 6) score++;
-  if (v.length >= 10) score++;
-  if (/[A-Z]/.test(v) && /[a-z]/.test(v)) score++;
-  if (/[0-9]/.test(v)) score++;
-  if (/[^A-Za-z0-9]/.test(v)) score++;
-  const levels = [{w:'0%',c:'#555',t:''},{w:'20%',c:'#e04420',t:'Very Weak'},{w:'40%',c:'#ff8c00',t:'Weak'},{w:'60%',c:'#f5c842',t:'Fair'},{w:'80%',c:'#00a35c',t:'Strong'},{w:'100%',c:'#00ff88',t:'Very Strong'}];
-  const l = levels[Math.min(score, 5)];
-  bar.style.width = l.w; bar.style.background = l.c;
-  label.textContent = l.t; label.style.color = l.c;
-}
-
-function handleLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPass').value;
-  if (!email) { showFieldError('loginEmail'); showToast('Please enter your email or phone','error'); return; }
-  if (!pass) { showFieldError('loginPass'); showToast('Please enter your password','error'); return; }
-  
-  const user = allUsers.find(u => u.email === email && u.pass === pass);
-  if (!user) {
-    showToast('Invalid credentials! (Try loading sample data and use demo@demo.com / demo123)', 'error');
-    return;
-  }
-  
-  // Create current session user reference that stays synced
-  const talentProfile = TALENTS.find(t => t.email === email);
-  if (talentProfile) {
-      currentUser = talentProfile;
-  } else {
-      currentUser = user;
-  }
-  
-  afterLogin();
-}
-
-function handleRegister() {
-  const name = document.getElementById('regName').value.trim();
-  const email = document.getElementById('regEmail').value.trim();
-  const phone = document.getElementById('regPhone').value.trim();
-  const state = document.getElementById('regState').value;
-  const pass = document.getElementById('regPass').value;
-  let valid = true;
-  if (!name) { showFieldError('regName'); valid = false; }
-  if (!email || !validateEmail(email)) { showFieldError('regEmail'); valid = false; }
-  if (!state) { showFieldError('regState'); valid = false; }
-  if (!pass || pass.length < 6) { showFieldError('regPass'); valid = false; }
-  if (!valid) { showToast('Please fix the highlighted fields','error'); return; }
-  
-  if (allUsers.find(u => u.email === email)) {
-      showToast('Email already in use', 'error'); return;
-  }
-  
-  const newUserAuth = { name, email, phone, pass, role: selectedRole, emoji: selectedRole==='talent'?'\u{1F9D1}\u200D\u{1F527}':'\u{1F3E2}', state, skills: [], bio: '', avail: 'open', district: '', views:0, rating:5.0 };
-  allUsers.push(newUserAuth);
-  
-  const newProfile = {
-      id: Date.now(),
-      email: email,
-      name: name,
-      emoji: newUserAuth.emoji,
-      location: state,
-      lat: 20.5937 + (Math.random()*4-2),
-      lng: 78.9629 + (Math.random()*4-2),
-      skills: [],
-      primary: selectedRole==='talent' ? (document.getElementById('regCategory').value || 'Professional') : 'Talent Seeker',
-      exp: '0 yrs', verify: 'self', avail: 'open',
-      category: 'tech', bio: '', views: 0, rating: 5.0,
-      phone: phone
-  };
-  if (selectedRole === 'talent') TALENTS.push(newProfile);
-  currentUser = selectedRole === 'talent' ? newProfile : newUserAuth;
-  
-  persistState();
-  showToast('Welcome, '+name+'! Account created.','success');
-  afterLogin();
-}
-
-function afterLogin() {
-  document.getElementById('sidebarName').textContent = currentUser.name;
-  document.getElementById('sidebarRole').textContent = ROLE_LABELS[currentUser.role] || currentUser.role;
-  document.getElementById('sidebarAvatar').textContent = currentUser.emoji;
-  document.getElementById('topbarUser').textContent = 'Welcome, '+currentUser.name.split(' ')[0];
-  showToast('Signed in as '+currentUser.name,'success');
-  persistState();
-  showDash();
-}
-
-function logout() {
-  currentUser = null;
-  localStorage.removeItem('sc_user');
-  showPage('landingPage');
-  showToast('Signed out successfully','info');
-}
-
-// ===================== MAPS =====================
-const DARK_TILES = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-const TILE_ATTR = '© OpenStreetMap © CARTO';
-
-function makeMarkerIcon(color, size=14) {
-  return L.divIcon({
-    className: '',
-    html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${color};border:2px solid ${color};box-shadow:0 0 ${size}px ${color}55;cursor:pointer;transition:transform 0.2s"></div>`,
-    iconSize: [size, size],
-    iconAnchor: [size/2, size/2]
-  });
-}
-
-function initHeroMap() {
-  if (heroMapObj) return;
-  const el = document.getElementById('heroMap');
-  if (!el) return;
-  heroMapObj = L.map('heroMap', { zoomControl: false, attributionControl: false, dragging: false, scrollWheelZoom: false }).setView([20.5937, 78.9629], 5);
-  L.tileLayer(DARK_TILES, { attribution: TILE_ATTR, maxZoom: 18 }).addTo(heroMapObj);
-  // Chennai focus marker
-  L.circleMarker([13.0827, 80.2707], { radius: 16, color: '#00d4ff', fillColor: '#00d4ff', fillOpacity: 0.1, weight: 1 }).addTo(heroMapObj);
-  TALENTS.forEach(t => {
-    const m = L.marker([t.lat, t.lng], { icon: makeMarkerIcon(CAT_COLORS[t.category] || '#00d4ff', 10) }).addTo(heroMapObj);
-    m.bindTooltip(`<b>${t.name}</b><br>${t.primary}`, { direction: 'top', className: '' });
-  });
-}
-
-function initDashMap() {
-  if (dashMapObj) return;
-  const el = document.getElementById('dashMap');
-  if (!el) return;
-  // Center on user's approximate location (Chennai default)
-  dashMapObj = L.map('dashMap', { zoomControl: true, attributionControl: false }).setView([13.0827, 80.2707], 8);
-  L.tileLayer(DARK_TILES, { attribution: TILE_ATTR, maxZoom: 18 }).addTo(dashMapObj);
-  // User location marker
-  const userMarker = L.divIcon({
-    className: '',
-    html: `<div style="width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #00d4ff;box-shadow:0 0 20px #00d4ff;animation:logoPulse 2s infinite"></div>`,
-    iconSize: [16,16], iconAnchor: [8,8]
-  });
-  L.marker([13.0827, 80.2707], { icon: userMarker }).addTo(dashMapObj).bindTooltip('You are here', {permanent:false});
-  TALENTS.forEach(t => addDashMarker(t, dashMapObj, allMarkers));
-}
-
-function addDashMarker(t, map, arr) {
-  const m = L.marker([t.lat, t.lng], { icon: makeMarkerIcon(CAT_COLORS[t.category] || '#00d4ff') }).addTo(map);
-  m.bindPopup(`
-    <div class="popup-name">${t.emoji} ${t.name}</div>
-    <div class="popup-skill">${t.primary}</div>
-    <div class="popup-loc">📍 ${t.location}</div>
-    <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">${t.skills.slice(0,3).map(s=>`<span style="background:#1a2d40;border:1px solid #243d55;padding:2px 7px;font-size:0.62rem;color:#8ba4b8;text-transform:uppercase">${s}</span>`).join('')}</div>
-    <button class="popup-btn" onclick="openTalentModal(${t.id})">View Profile & Chat</button>
-  `, { maxWidth: 240 });
-  arr.push({ marker: m, category: t.category });
-  return m;
-}
-
-function initFullMap() {
-  if (fullMapObj) return;
-  const el = document.getElementById('fullMap');
-  if (!el) return;
-  fullMapObj = L.map('fullMap', { zoomControl: true, attributionControl: false }).setView([20.5937, 78.9629], 5);
-  L.tileLayer(DARK_TILES, { attribution: TILE_ATTR, maxZoom: 18 }).addTo(fullMapObj);
-  const userMarker = L.divIcon({
-    className: '',
-    html: `<div style="width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #00d4ff;box-shadow:0 0 24px #00d4ff"></div>`,
-    iconSize: [18,18], iconAnchor: [9,9]
-  });
-  L.marker([13.0827, 80.2707], { icon: userMarker }).addTo(fullMapObj).bindTooltip('Your Location', {permanent:true, direction:'right'});
-  TALENTS.forEach(t => addDashMarker(t, fullMapObj, fullMarkers));
-}
-
-function filterMapCategory(cat, btn) {
-  document.querySelectorAll('.map-ctrl-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  allMarkers.forEach(({ marker, category }) => {
-    if (cat === 'all' || category === cat) marker.addTo(dashMapObj);
-    else dashMapObj.removeLayer(marker);
-  });
-}
-
-function filterFullMap(cat, btn) {
-  document.querySelectorAll('#mapCatPills .cat-pill').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  fullMarkers.forEach(({ marker, category }) => {
-    if (cat === 'all' || category === cat) marker.addTo(fullMapObj);
-    else fullMapObj.removeLayer(marker);
-  });
-}
-
-// ===================== DASHBOARD SECTIONS =====================
-function showDashSection(name, el) {
-  document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(`sec-${name}`).classList.add('active');
-  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-  if (el) el.classList.add('active');
-  document.getElementById('topbarTitle').textContent = { overview:'Overview', map:'Talent Map', discover:'Discover Talent', chat:'Messages', profile:'My Profile', connections:'Connections' }[name] || name;
-  if (name === 'map') setTimeout(initFullMap, 150);
-  if (name === 'chat') renderChatList();
-}
-
-function animateOverviewStats() {
-  const unreadMsg = conversations.reduce((a,c)=>a+(c.unread||0),0);
-  const totalViews = currentUser?.views || 0;
-  const stats = [
-    {id:'ov-views',val:totalViews},
-    {id:'ov-req',val:0},
-    {id:'ov-conn',val:myConnections.length},
-    {id:'ov-msg',val:unreadMsg}
-  ];
-  stats.forEach(s => {
-    let cur = 0;
-    const tick = setInterval(() => {
-      cur = Math.min(cur + Math.ceil(s.val / 20), s.val);
-      document.getElementById(s.id).textContent = cur;
-      if (cur >= s.val) clearInterval(tick);
-    }, 50);
-  });
-}
-
-// ===================== TALENT GRID =====================
-function filterTalents() {
-  const q = document.getElementById('discoverSearch').value.toLowerCase();
-  const cat = document.getElementById('discoverCat').value;
-  const avail = document.getElementById('discoverAvail').value;
-  const sort = document.getElementById('discoverSort')?.value || 'relevant';
-  let filtered = TALENTS.filter(t => {
-    const matchQ = !q || t.name.toLowerCase().includes(q) || t.skills.some(s=>s.toLowerCase().includes(q)) || t.primary.toLowerCase().includes(q) || t.location.toLowerCase().includes(q);
-    const matchCat = cat === 'all' || t.category === cat;
-    const matchAvail = avail === 'all' || t.avail === avail;
-    return matchQ && matchCat && matchAvail;
-  });
-  if (sort === 'rated') filtered.sort((a,b) => b.rating - a.rating);
-  else if (sort === 'exp') filtered.sort((a,b) => parseInt(b.exp) - parseInt(a.exp));
-  else if (sort === 'name') filtered.sort((a,b) => a.name.localeCompare(b.name));
-  document.getElementById('discoverCount').textContent = 'Showing ' + filtered.length + ' profiles';
-  renderTalentGrid(filtered);
-}
-
-function renderTalentGrid(data = TALENTS) {
-  const grid = document.getElementById('talentGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  data.forEach((t, i) => {
-    const card = document.createElement('div');
-    card.className = 't-card';
-    card.style.animationDelay = `${i * 0.05}s`;
-    card.innerHTML = `
-      <div class="tc-head">
-        <div class="tc-avatar">${t.emoji}</div>
-        <div class="tc-info">
-          <div class="tc-name">${t.name}</div>
-          <div class="tc-role">${t.primary}</div>
-          <div class="tc-loc">📍 ${t.location}</div>
-        </div>
-        <div class="tc-verify verify-${t.verify}">${t.verify==='gov'?'✓ Govt':t.verify==='peer'?'✓ Peer':'Self'}</div>
-      </div>
-      <div class="tc-skills">${t.skills.slice(0,4).map((s,idx)=>`<div class="s-pill${idx===0?' hot':''}">${s}</div>`).join('')}</div>
-      <div class="tc-footer">
-        <div class="tc-exp"><strong>${t.exp}</strong> experience</div>
-        <div class="tc-avail"><div class="avail-dot avail-${t.avail}"></div>${t.avail==='open'?'Available':t.avail==='busy'?'Occupied':'Unavailable'}</div>
-      </div>
-      <div class="tc-actions">
-        <button class="tc-btn" onclick="openTalentModal(${t.id});event.stopPropagation()">View Profile</button>
-        <button class="tc-btn primary" onclick="startChat(${t.id});event.stopPropagation()">💬 Message</button>
-      </div>
-    `;
-    card.onclick = () => openTalentModal(t.id);
-    grid.appendChild(card);
-  });
-}
-
-function renderConnections(data) {
-  const grid = document.getElementById('connectionsGrid');
-  if (!grid) return;
-  const list = data || myConnections;
-  grid.innerHTML = '';
-  const countEl = document.getElementById('connCount');
-  if (countEl) countEl.textContent = list.length + ' connection' + (list.length !== 1 ? 's' : '');
-  list.forEach((t, i) => {
-    const card = document.createElement('div');
-    card.className = 't-card';
-    card.innerHTML = `
-      <div class="tc-head">
-        <div class="tc-avatar">${t.emoji}</div>
-        <div class="tc-info">
-          <div class="tc-name">${t.name}</div>
-          <div class="tc-role">${t.primary}</div>
-          <div class="tc-loc">${'\u{1F4CD}'} ${t.location}</div>
-        </div>
-      </div>
-      <div class="tc-skills">${t.skills.slice(0,3).map(s=>'<div class="s-pill">'+s+'</div>').join('')}</div>
-      <div class="tc-actions">
-        <button class="tc-btn primary" onclick="startChat(${t.id});event.stopPropagation()">${'\u{1F4AC}'} Message</button>
-        <button class="tc-btn" onclick="removeConnection(${t.id});event.stopPropagation()" style="color:var(--accent2);border-color:var(--accent2)">${'\u2715'} Remove</button>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-function removeConnection(id) {
-  myConnections = myConnections.filter(c => c.id !== id);
-  renderConnections();
-  persistState();
-  showToast('Connection removed','info');
-}
-
-// ===================== TALENT MODAL =====================
-function openTalentModal(id) {
-  const t = TALENTS.find(x => x.id === id);
-  if (!t) return;
-  document.getElementById('modalTitle').textContent = t.name;
-  document.getElementById('modalBody').innerHTML = `
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="font-size:3rem;margin-bottom:8px">${t.emoji}</div>
-      <div style="font-family:var(--font-display);font-weight:900;font-size:1.4rem">${t.name}</div>
-      <div style="font-size:0.72rem;color:var(--accent2);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px">${t.primary}</div>
-      <div style="font-size:0.72rem;color:var(--text2);margin-top:4px">📍 ${t.location}</div>
-      <div class="tc-verify verify-${t.verify}" style="display:inline-block;margin-top:8px">${t.verify==='gov'?'✓ Govt Verified':t.verify==='peer'?'✓ Peer Verified':'Self Listed'}</div>
-    </div>
-    <div style="background:var(--surface2);border:1px solid var(--border);padding:14px 16px;margin-bottom:16px;font-size:0.8rem;line-height:1.8;color:var(--text2)">${t.bio}</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-      <div style="background:var(--surface2);border:1px solid var(--border);padding:12px;text-align:center">
-        <div style="font-family:var(--font-display);font-weight:900;font-size:1.4rem;color:var(--accent)">${t.exp}</div>
-        <div style="font-size:0.62rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase">Experience</div>
-      </div>
-      <div style="background:var(--surface2);border:1px solid var(--border);padding:12px;text-align:center">
-        <div style="font-family:var(--font-display);font-weight:900;font-size:1.4rem;color:var(--gold)">${t.rating} ★</div>
-        <div style="font-size:0.62rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase">Rating</div>
-      </div>
-    </div>
-    <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);margin-bottom:8px">Skills</div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">${t.skills.map(s=>`<div class="s-pill">${s}</div>`).join('')}</div>
-    <div style="display:flex;gap:10px">
-      <button class="tc-btn primary" style="flex:2" onclick="closeModal();startChat(${t.id})">💬 Send Message</button>
-      <button class="tc-btn" style="flex:1" onclick="addConnection(${t.id})">🔗 Connect</button>
-    </div>
-  `;
-  openModal();
-}
-
-function addConnection(id) {
-  const t = TALENTS.find(x => x.id === id);
-  if (t && !myConnections.find(c => c.id === id)) {
-    myConnections.push(t);
-    notifications.unshift({id: Date.now(), icon: '🔗', text: 'You established a connection with ' + t.name, time: 'just now', read: false});
-    renderConnections();
-    persistState();
-    showToast('Connected with '+t.name+'!', 'success');
-  } else {
-    showToast('Already connected!', 'info');
-  }
-  closeModal();
-}
-
-// ===================== CHAT =====================
-function renderChatList(filter = '') {
-  const list = document.getElementById('chatList');
-  if (!list) return;
-  list.innerHTML = '';
-  const filtered = filter ? conversations.filter(c => c.name.toLowerCase().includes(filter.toLowerCase())) : conversations;
-  filtered.forEach(c => {
-    const div = document.createElement('div');
-    div.className = `chat-item${activeChatId === c.id ? ' active' : ''}`;
-    div.onclick = () => openChat(c.id);
-    const lastMsg = c.messages[c.messages.length - 1];
-    div.innerHTML = `
-      <div class="ci-avatar">${c.emoji}${c.online ? '<div class="ci-online"></div>' : ''}</div>
-      <div class="ci-info">
-        <div class="ci-name">${c.name}</div>
-        <div class="ci-preview">${lastMsg?.type === 'contact' ? '📇 Contact Card' : (lastMsg?.text || '')}</div>
-      </div>
-      <div class="ci-meta">
-        <div class="ci-time">${c.time}</div>
-        ${c.unread ? `<div class="ci-unread">${c.unread}</div>` : ''}
-      </div>
-    `;
-    list.appendChild(div);
-  });
-}
-
-function filterChats(q) { renderChatList(q); }
-
-function openChat(id) {
-  activeChatId = id;
-  const conv = conversations.find(c => c.id === id);
-  if (!conv) return;
-  conv.unread = 0;
-  document.getElementById('msgBadge').textContent = conversations.reduce((a,c) => a + c.unread, 0) || '';
-  renderChatList();
-
-  const win = document.getElementById('chatWindow');
-  win.innerHTML = `
-    <div class="chat-window-header">
-      <div class="chat-w-avatar">${conv.emoji}</div>
-      <div>
-        <div class="chat-w-name">${conv.name}</div>
-        <div class="chat-w-status">${conv.online ? 'Online now' : 'Offline'}</div>
-      </div>
-      <div class="chat-w-actions">
-        <button class="chat-action-btn" onclick="sendContactCard(${id})" title="Share contact card">📇</button>
-        <button class="chat-action-btn" onclick="openTalentModal(${conv.userId})" title="View profile">👤</button>
-      </div>
-    </div>
-    <div class="chat-messages" id="chatMsgs-${id}"></div>
-    <div class="chat-input-area">
-      <button class="chat-attach-btn" title="Attach file">📎</button>
-      <textarea class="chat-input" id="chatInput-${id}" placeholder="Type a message..." rows="1" onkeydown="handleChatKey(event,${id})"></textarea>
-      <button class="chat-send-btn" onclick="sendMsg(${id})">➤</button>
-    </div>
-  `;
-  renderMessages(id);
-}
-
-function renderMessages(id) {
-  const conv = conversations.find(c => c.id === id);
-  const container = document.getElementById(`chatMsgs-${id}`);
-  if (!container || !conv) return;
-  container.innerHTML = `<div class="system-msg">🔒 Messages are end-to-end encrypted</div>`;
-  conv.messages.forEach(m => {
-    const wrap = document.createElement('div');
-    wrap.className = `msg-wrap ${m.from === 'me' ? 'sent' : ''}`;
-    if (m.type === 'contact') {
-      wrap.innerHTML = `
-        <div class="msg-avatar">${m.from === 'me' ? (currentUser?.emoji || '👤') : conv.emoji}</div>
-        <div class="msg-content">
-          <div class="contact-share-card">
-            <div class="csc-label">📇 Contact Card Shared</div>
-            <div class="csc-name">${m.contact.name}</div>
-            <div class="csc-detail">📱 ${m.contact.phone}</div>
-            <div class="csc-detail">💼 ${m.contact.role}</div>
-            ${m.from !== 'me' ? `<button class="csc-accept" onclick="acceptContact('${m.contact.name}','${m.contact.phone}')">Accept & Save Contact</button>` : ''}
-          </div>
-          <div class="msg-time">${m.time}</div>
-        </div>
-      `;
-    } else {
-      wrap.innerHTML = `
-        <div class="msg-avatar">${m.from === 'me' ? (currentUser?.emoji || '👤') : conv.emoji}</div>
-        <div class="msg-content">
-          <div class="msg-bubble">${m.text}</div>
-          <div class="msg-time">${m.time}</div>
-        </div>
-      `;
-    }
-    container.appendChild(wrap);
-  });
-  container.scrollTop = container.scrollHeight;
-}
-
-function handleChatKey(e, id) {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(id); }
-}
-
-function sendMsg(id) {
-  const input = document.getElementById('chatInput-'+id);
-  if (!input) return;
-  const text = input.value.trim();
-  if (!text) return;
-  const conv = conversations.find(c => c.id === id);
-  if (!conv) return;
-  const now = new Date();
-  const time = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-  conv.messages.push({ id: Date.now(), from: 'me', text, time, read: true });
-  conv.lastMsg = text;
-  conv.time = 'now';
-  input.value = '';
-  
-  
-  renderMessages(id);
-  renderChatList();
-  persistState();
-}
-
-function sendContactCard(id) {
-  const conv = conversations.find(c => c.id === id);
-  if (!conv || !currentUser) return;
-  const now = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  conv.messages.push({
-    id: Date.now(), from: 'me', time: now, type: 'contact',
-    contact: { name: currentUser.name, phone: currentUser.phone || 'N/A', role: currentUser.role === 'talent' ? 'Talent Provider' : 'Talent Seeker' }
-  });
-  conv.lastMsg = '📇 Contact Card';
-  renderMessages(id);
-  renderChatList();
-  showToast('Contact card shared!', 'success');
-}
-
-function acceptContact(name, phone) {
-  showToast(`✓ ${name}'s contact saved: ${phone}`, 'success');
-}
-
-function startChat(talentId) {
-  const t = TALENTS.find(x => x.id === talentId);
-  if (!t) return;
-  let conv = conversations.find(c => c.userId === talentId);
-  if (!conv) {
-    conv = { id: Date.now(), userId: talentId, name: t.name, emoji: t.emoji, lastMsg: '', time: 'now', unread: 0, online: Math.random() > 0.5, messages: [] };
-    conversations.unshift(conv);
-  }
-  showDashSection('chat', document.querySelector('.sidebar-item:nth-child(4)'));
-  setTimeout(() => openChat(conv.id), 100);
-}
-
-// ===================== PROFILE =====================
-function updateProfileUI() {
-  if (!currentUser) return;
-  document.getElementById('profileAvatar').textContent = currentUser.emoji;
-  document.getElementById('profileName').textContent = currentUser.name;
-  document.getElementById('profileRole').textContent = ROLE_LABELS[currentUser.role] || currentUser.role;
-  document.getElementById('profileLoc').textContent = '\u{1F4CD} ' + (currentUser.district || '\u2014') + ', ' + (currentUser.state || '\u2014');
-  document.getElementById('editName').value = currentUser.name;
-  document.getElementById('editPhone').value = currentUser.phone || '';
-  document.getElementById('editDistrict').value = currentUser.district || '';
-  document.getElementById('editSkills').value = currentUser.skills.join(', ');
-  document.getElementById('editBio').value = currentUser.bio || '';
-  document.getElementById('editAvail').value = currentUser.avail || 'open';
-  const tagsEl = document.getElementById('profileSkillTags');
-  tagsEl.innerHTML = currentUser.skills.map(s => '<div class="s-pill">'+s+'</div>').join('') || '<div style="color:var(--text3);font-size:0.75rem">No skills added yet</div>';
-  // Profile completion
-  const pct = getProfileCompletion();
-  const cw = document.getElementById('completionWrap');
-  if (cw) {
-    const color = pct >= 80 ? 'var(--accent3)' : pct >= 50 ? 'var(--gold)' : 'var(--accent2)';
-    cw.innerHTML = '<div class="completion-pct" style="color:'+color+'">'+pct+'% Complete</div>' +
-      '<div style="height:4px;background:var(--border);margin-top:6px"><div style="height:100%;width:'+pct+'%;background:'+color+';transition:width 0.6s"></div></div>' +
-      (pct < 80 ? '<div class="completion-text" style="margin-top:6px">Complete your profile to get discovered</div>' : '<div class="completion-text" style="margin-top:6px;color:var(--accent3)">Profile is well completed!</div>');
-  }
-}
-
-function saveProfile() {
-  if (!currentUser) return;
-  currentUser.name = document.getElementById('editName').value.trim() || currentUser.name;
-  currentUser.phone = document.getElementById('editPhone').value.trim() || currentUser.phone;
-  currentUser.district = document.getElementById('editDistrict').value.trim();
-  currentUser.skills = document.getElementById('editSkills').value.split(',').map(s => s.trim()).filter(Boolean);
-  currentUser.bio = document.getElementById('editBio').value.trim();
-  currentUser.avail = document.getElementById('editAvail').value;
-  currentUser.location = (currentUser.district ? currentUser.district + ', ' : '') + (currentUser.state || 'India');
-  
-  if(currentUser.id) {
-     const tIdx = TALENTS.findIndex(x => x.id === currentUser.id);
-     if (tIdx >= 0) TALENTS[tIdx] = currentUser;
-  }
-  
-  document.getElementById('sidebarName').textContent = currentUser.name;
-  document.getElementById('topbarUser').textContent = 'Welcome, '+currentUser.name.split(' ')[0];
-  updateTrendingStats();
-  updateProfileUI();
-  persistState();
-  showToast('Profile updated successfully!', 'success');
-}
-
-function getProfileCompletion() {
-  if (!currentUser) return 0;
-  let s = 0, t = 5;
-  if (currentUser.name) s++;
-  if (currentUser.district) s++;
-  if (currentUser.skills && currentUser.skills.length) s++;
-  if (currentUser.bio) s++;
-  if (currentUser.avail) s++;
-  return Math.round((s/t)*100);
-}
-
-function updateTrendingStats() {
-  const counts = {};
-  TALENTS.forEach(t => t.skills.forEach(s => {
-      const qs = s.toLowerCase();
-      counts[qs] = (counts[qs] || 0) + 1;
-  }));
-  TRENDING = Object.entries(counts)
-      .sort((a,b) => b[1] - a[1]).slice(0, 8)
-      .map(entry => ({ skill: entry[0].charAt(0).toUpperCase() + entry[0].slice(1), cat: 'Auto', count: entry[1] * 120 + Math.floor(Math.random()*50), pct: Math.min(100, entry[1]*30) }));
-  renderTrendingTable();
-}
-
-function renderTrendingTable() {
-  const tbody = document.getElementById('trendingTbody');
-  if (!tbody) return;
-  if (TRENDING.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text3);padding:20px">No skills registered yet. Be the first!</td></tr>';
-      return;
-  }
-  tbody.innerHTML = TRENDING.map((r, i) => `
-    <tr>
-      <td style="color:var(--text3);font-weight:700">${String(i+1).padStart(2,'0')}</td>
-      <td style="font-family:var(--font-display);font-weight:700">${r.skill}</td>
-      <td><span class="s-pill">${r.cat}</span></td>
-      <td style="color:var(--accent);font-family:var(--font-display);font-weight:700">${r.count.toLocaleString('en-IN')}</td>
-      <td style="width:120px"><div class="trend-bar" style="width:${r.pct}%"></div></td>
-    </tr>
-  `).join('');
-}
-
-// ===================== MODAL =====================
-function openModal() { document.getElementById('modalBg').classList.add('open'); }
-function closeModal() { document.getElementById('modalBg').classList.remove('open'); }
-document.getElementById('modalBg').addEventListener('click', e => { if (e.target === document.getElementById('modalBg')) closeModal(); });
-
-// ===================== TOAST =====================
-function showToast(msg, type = 'info') {
-  const c = document.getElementById('toastContainer');
-  const t = document.createElement('div');
-  t.className = `toast ${type}`;
-  const icons = { success: '✓', error: '✕', info: 'ℹ' };
-  t.innerHTML = `<span style="font-size:1rem">${icons[type]||'ℹ'}</span> ${msg}`;
-  c.appendChild(t);
-  setTimeout(() => { t.style.opacity='0'; t.style.transform='translateX(20px)'; t.style.transition='all 0.3s'; setTimeout(() => t.remove(), 300); }, 3000);
-}
-
-// ===================== PARTICLES =====================
-function initParticles() {
-  const container = document.getElementById('particles');
-  if (!container) return;
-  const colors = ['#00d4ff', '#ff5733', '#00ff88'];
-  for (let i = 0; i < 30; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random() * 3 + 1;
-    p.style.cssText = `width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*3)]};left:${Math.random()*100}%;opacity:${Math.random()*0.4+0.1};animation-duration:${Math.random()*20+15}s;animation-delay:-${Math.random()*20}s;`;
-    container.appendChild(p);
-  }
-}
-
-// ===================== HERO COUNTER =====================
-function startHeroCounter() {
-  setInterval(() => {
-    const el = document.getElementById('heroCount');
-    if (el) el.textContent = (TALENTS.length > 0 ? TALENTS.length.toLocaleString('en-IN') : '0');
-  }, 1000);
-}
-
-// ===================== THEME TOGGLE =====================
-function toggleTheme() {
-  const cur = document.documentElement.getAttribute('data-theme');
-  const next = cur === 'light' ? 'dark' : 'light';
-  document.documentElement.setAttribute('data-theme', next === 'dark' ? '' : 'light');
-  if (next === 'dark') document.documentElement.removeAttribute('data-theme');
-  localStorage.setItem('sc_theme', next === 'dark' ? '' : 'light');
-  updateThemeUI(next === 'dark' ? '' : 'light');
-}
-function updateThemeUI(theme) {
-  const icon = document.getElementById('themeIcon');
-  const label = document.getElementById('themeLabel');
-  if (icon) icon.textContent = theme === 'light' ? '\u2600\uFE0F' : '\u{1F319}';
-  if (label) label.textContent = theme === 'light' ? 'Light Mode' : 'Dark Mode';
-}
-
-// ===================== NOTIFICATIONS =====================
-function toggleNotifPanel() {
-  const p = document.getElementById('notifPanel');
-  p.classList.toggle('open');
-}
-function renderNotifList() {
-  const list = document.getElementById('notifList');
-  if (!list) return;
-  const unread = notifications.filter(n=>!n.read).length;
-  const dot = document.getElementById('notifDot');
-  if (dot) dot.style.display = unread > 0 ? 'block' : 'none';
-  if (notifications.length === 0) {
-    list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text3);font-size:0.75rem">No notifications</div>';
-    return;
-  }
-  list.innerHTML = notifications.map(n => '<div class="notif-item'+(n.read?'':' unread')+'" onclick="markNotifRead('+n.id+')">' +
-    '<span class="ni-icon">'+n.icon+'</span>' +
-    '<span class="ni-text">'+n.text+'</span>' +
-    '<span class="ni-time">'+n.time+'</span></div>').join('');
-}
-function markNotifRead(id) {
-  const n = notifications.find(x=>x.id===id);
-  if (n) { n.read = true; renderNotifList(); persistState(); }
-}
-function clearNotifs() {
-  notifications = [];
-  renderNotifList();
-  persistState();
-  showToast('Notifications cleared','info');
-}
-
-// ===================== ENDORSEMENTS =====================
-function endorseSkill(talentId, skill) {
-  const key = talentId + ':' + skill;
-  if (skillEndorsements[key]) {
-    showToast('Already endorsed this skill','info');
-    return;
-  }
-  skillEndorsements[key] = (skillEndorsements[key] || 0) + 1;
-  persistState();
-  showToast('Endorsed "'+skill+'"!','success');
-}
-function getEndorseCount(talentId, skill) {
-  const key = talentId + ':' + skill;
-  return skillEndorsements[key] || 0;
-}
-
-// ===================== EXPORT PROFILE =====================
-function exportProfile() {
-  if (!currentUser) { showToast('Please sign in first','error'); return; }
-  const data = JSON.stringify(currentUser, null, 2);
-  const blob = new Blob([data], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'skillcensus_profile.json';
-  a.click(); URL.revokeObjectURL(url);
-  showToast('Profile exported as JSON','success');
-}
-
-// ===================== CONNECTIONS FILTER =====================
-function filterConnections() {
-  const q = (document.getElementById('connSearch')?.value || '').toLowerCase();
-  const filtered = myConnections.filter(t => !q || t.name.toLowerCase().includes(q) || t.skills.some(s=>s.toLowerCase().includes(q)) || t.location.toLowerCase().includes(q));
-  renderConnections(filtered);
-}
-
-// ===================== KEYBOARD SHORTCUTS =====================
-function initKeyboardShortcuts() {
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      closeModal();
-      document.getElementById('notifPanel')?.classList.remove('open');
-      document.getElementById('mobileMenu')?.classList.remove('open');
-    }
-  });
-}
-
-// ===================== INIT =====================
-window.addEventListener('DOMContentLoaded', () => {
-  initParticles();
-  startHeroCounter();
-  initKeyboardShortcuts();
-  setTimeout(initHeroMap, 300);
-  restoreState();
-  if (currentUser) {
-    afterLogin();
-  }
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
 </body>
 </html>
+
