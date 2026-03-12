@@ -352,7 +352,7 @@ async function loadNotifications() {
   if (error) { showToast(error.message, 'error'); return; }
   notifications = (data || []).map(n => ({
     id: n.id,
-    icon: n.icon || '!'
+    icon: n.icon || '!',
     text: n.text || '',
     time: formatTime(n.created_at),
     read: !!n.read
