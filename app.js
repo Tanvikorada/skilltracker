@@ -1,4 +1,4 @@
-﻿/* SkillCensus - Supabase powered app */
+/* SkillCensus - Supabase powered app */
 const SUPABASE_URL = 'https://evfjdigecncbxqnweuhb.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2ZmpkaWdlY25jYnhxbndldWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzkxMzUsImV4cCI6MjA4ODkxNTEzNX0.F_BJoZakL0NsKMq5rhKm_l5z5M28IN6KDBasr3XrVrg';
 
@@ -33,7 +33,7 @@ let endorsementCounts = {};
 let activeMessages = [];
 let activeThreadSub = null;
 
-const ROLE_LABELS = { talent: '\u{1F9D1}\u200D\u{1F527} Talent Provider', seeker: '\u{1F3E2} Talent Seeker' };
+const ROLE_LABELS = { talent: 'Talent Provider', seeker: 'Talent Seeker' };
 const CAT_COLORS = {tech:'#00d4ff',trade:'#ff5733',health:'#00ff88',agri:'#f5c842',edu:'#c084fc',creative:'#f472b6'};
 
 // ===================== SUPABASE HELPERS =====================
@@ -55,12 +55,18 @@ function normalizeSkills(raw) {
   return String(raw).split(',').map(s => s.trim()).filter(Boolean);
 }
 
+function getAvatarLetter(name) {
+  if (!name) return 'U';
+  const ch = String(name).trim()[0];
+  return ch ? ch.toUpperCase() : 'U';
+}
+
 function profileToTalent(p) {
   const location = [p.district, p.state].filter(Boolean).join(', ') || 'India';
   return {
     id: p.id,
     name: p.name || 'Unnamed',
-    emoji: p.emoji || '\u{1F464}',
+    emoji: p.emoji || getAvatarLetter(p.name),
     location,
     lat: p.lat,
     lng: p.lng,
@@ -215,7 +221,7 @@ async function handleRegister() {
     name,
     email,
     phone,
-    emoji: selectedRole === 'talent' ? '\u{1F9D1}\u200D\u{1F527}' : '\u{1F3E2}',
+    emoji: getAvatarLetter(name),
     state,
     district: '',
     skills: [],
@@ -244,7 +250,7 @@ async function afterLogin() {
   currentUser = profileToTalent(currentProfile);
   document.getElementById('sidebarName').textContent = currentProfile.name || '';
   document.getElementById('sidebarRole').textContent = ROLE_LABELS[currentProfile.role] || currentProfile.role;
-  document.getElementById('sidebarAvatar').textContent = currentProfile.emoji || '\u{1F464}';
+  document.getElementById('sidebarAvatar').textContent = currentProfile.emoji || getAvatarLetter(currentProfile.name);
   document.getElementById('topbarUser').textContent = 'Welcome, ' + (currentProfile.name || '').split(' ')[0];
   showToast('Signed in as ' + (currentProfile.name || 'User'), 'success');
   await loadDashData();
@@ -323,8 +329,8 @@ async function loadThreads() {
       id: t.id,
       userId: other?.id,
       name: other?.name || 'Unknown',
-      emoji: other?.emoji || '\u{1F464}',
-      lastMsg: last?.type === 'contact' ? '\u{1F4C7} Contact Card' : (last?.body || ''),
+      emoji: other?.emoji || getAvatarLetter(other?.name),
+      lastMsg: last?.type === 'contact' ? 'Contact Card' : (last?.body || ''),
       time: formatTime(last?.created_at || t.updated_at),
       unread: 0,
       online: false,
@@ -346,7 +352,7 @@ async function loadNotifications() {
   if (error) { showToast(error.message, 'error'); return; }
   notifications = (data || []).map(n => ({
     id: n.id,
-    icon: n.icon || '\u{1F514}',
+    icon: n.icon || '!'
     text: n.text || '',
     time: formatTime(n.created_at),
     read: !!n.read
@@ -475,9 +481,9 @@ function renderTalentGrid(data = TALENTS) {
         <div class="tc-info">
           <div class="tc-name">${t.name}</div>
           <div class="tc-role">${t.primary}</div>
-          <div class="tc-loc">\u{1F4CD} ${t.location}</div>
+          <div class="tc-loc">Location: ${t.location}</div>
         </div>
-        <div class="tc-verify verify-${t.verify}">${t.verify==='gov'?'\u2713 Govt':t.verify==='peer'?'\u2713 Peer':'Self'}</div>
+        <div class="tc-verify verify-${t.verify}">${t.verify==='gov'?'Govt':t.verify==='peer'?'Peer':'Self'}</div>
       </div>
       <div class="tc-skills">${t.skills.slice(0,4).map((s,idx)=>`<div class="s-pill${idx===0?' hot':''}">${s}</div>`).join('')}</div>
       <div class="tc-footer">
@@ -486,7 +492,7 @@ function renderTalentGrid(data = TALENTS) {
       </div>
       <div class="tc-actions">
         <button class="tc-btn" onclick="openTalentModal('${t.id}');event.stopPropagation()">View Profile</button>
-        <button class="tc-btn primary" onclick="startChat('${t.id}');event.stopPropagation()">\u{1F4AC} Message</button>
+        <button class="tc-btn primary" onclick="startChat('${t.id}');event.stopPropagation()">Message</button>
       </div>
     `;
     card.onclick = () => openTalentModal(t.id);
@@ -510,13 +516,13 @@ function renderConnections(data) {
         <div class="tc-info">
           <div class="tc-name">${t.name}</div>
           <div class="tc-role">${t.primary}</div>
-          <div class="tc-loc">\u{1F4CD} ${t.location}</div>
+          <div class="tc-loc">Location: ${t.location}</div>
         </div>
       </div>
       <div class="tc-skills">${t.skills.slice(0,3).map(s=>'<div class="s-pill">'+s+'</div>').join('')}</div>
       <div class="tc-actions">
-        <button class="tc-btn primary" onclick="startChat('${t.id}');event.stopPropagation()">\u{1F4AC} Message</button>
-        <button class="tc-btn" onclick="removeConnection('${t.id}');event.stopPropagation()" style="color:var(--accent2);border-color:var(--accent2)">\u2715 Remove</button>
+        <button class="tc-btn primary" onclick="startChat('${t.id}');event.stopPropagation()">Message</button>
+        <button class="tc-btn" onclick="removeConnection('${t.id}');event.stopPropagation()" style="color:var(--accent2);border-color:var(--accent2)">X Remove</button>
       </div>
     `;
     grid.appendChild(card);
@@ -541,8 +547,8 @@ async function openTalentModal(id) {
       <div style="font-size:3rem;margin-bottom:8px">${t.emoji}</div>
       <div style="font-family:var(--font-display);font-weight:900;font-size:1.4rem">${t.name}</div>
       <div style="font-size:0.72rem;color:var(--accent2);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px">${t.primary}</div>
-      <div style="font-size:0.72rem;color:var(--text2);margin-top:4px">\u{1F4CD} ${t.location}</div>
-      <div class="tc-verify verify-${t.verify}" style="display:inline-block;margin-top:8px">${t.verify==='gov'?'\u2713 Govt Verified':t.verify==='peer'?'\u2713 Peer Verified':'Self Listed'}</div>
+      <div style="font-size:0.72rem;color:var(--text2);margin-top:4px">Location: ${t.location}</div>
+      <div class="tc-verify verify-${t.verify}" style="display:inline-block;margin-top:8px">${t.verify==='gov'?'Govt Verified':t.verify==='peer'?'Peer Verified':'Self Listed'}</div>
     </div>
     <div style="background:var(--surface2);border:1px solid var(--border);padding:14px 16px;margin-bottom:16px;font-size:0.8rem;line-height:1.8;color:var(--text2)">${t.bio}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
@@ -551,15 +557,15 @@ async function openTalentModal(id) {
         <div style="font-size:0.62rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase">Experience</div>
       </div>
       <div style="background:var(--surface2);border:1px solid var(--border);padding:12px;text-align:center">
-        <div style="font-family:var(--font-display);font-weight:900;font-size:1.4rem;color:var(--gold)">${t.rating} \u2605</div>
+        <div style="font-family:var(--font-display);font-weight:900;font-size:1.4rem;color:var(--gold)">${t.rating} *</div>
         <div style="font-size:0.62rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase">Rating</div>
       </div>
     </div>
     <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text3);margin-bottom:8px">Skills</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">${t.skills.map(s=>`<div class="s-pill">${s}</div>`).join('')}</div>
     <div style="display:flex;gap:10px">
-      <button class="tc-btn primary" style="flex:2" onclick="closeModal();startChat('${t.id}')">\u{1F4AC} Send Message</button>
-      <button class="tc-btn" style="flex:1" onclick="addConnection('${t.id}')">\u{1F517} Connect</button>
+      <button class="tc-btn primary" style="flex:2" onclick="closeModal();startChat('${t.id}')">Send Message</button>
+      <button class="tc-btn" style="flex:1" onclick="addConnection('${t.id}')">Connect</button>
     </div>
   `;
   openModal();
@@ -571,7 +577,7 @@ async function addConnection(id) {
   if (id === currentProfile.id) { showToast('You cannot connect with yourself','info'); return; }
   const { error } = await sb.from('connections').insert({ user_id: currentProfile.id, target_id: id });
   if (error) { showToast(error.message, 'error'); return; }
-  await sb.from('notifications').insert({ user_id: id, icon: '\u{1F517}', text: (currentProfile.name || 'Someone') + ' connected with you' });
+  await sb.from('notifications').insert({ user_id: id, icon: '!', text: (currentProfile.name || 'Someone') + ' connected with you' });
   await loadConnections();
   showToast('Connection added!', 'success');
   closeModal();
@@ -654,15 +660,15 @@ async function openChat(id) {
         <div class="chat-w-status">${conv.online ? 'Online now' : 'Offline'}</div>
       </div>
       <div class="chat-w-actions">
-        <button class="chat-action-btn" onclick="sendContactCard('${id}')" title="Share contact card">\u{1F4C7}</button>
-        <button class="chat-action-btn" onclick="openTalentModal('${conv.userId}')" title="View profile">\u{1F464}</button>
+        <button class="chat-action-btn" onclick="sendContactCard('${id}')" title="Share contact card">Contact</button>
+        <button class="chat-action-btn" onclick="openTalentModal('${conv.userId}')" title="View profile">Profile</button>
       </div>
     </div>
     <div class="chat-messages" id="chatMsgs-${id}"></div>
     <div class="chat-input-area">
-      <button class="chat-attach-btn" title="Attach file">\u{1F4CE}</button>
+      <button class="chat-attach-btn" title="Attach file">Attach</button>
       <textarea class="chat-input" id="chatInput-${id}" placeholder="Type a message..." rows="1" onkeydown="handleChatKey(event,'${id}')"></textarea>
-      <button class="chat-send-btn" onclick="sendMsg('${id}')">\u27A4</button>
+      <button class="chat-send-btn" onclick="sendMsg('${id}')">></button>
     </div>
   `;
 
@@ -690,19 +696,19 @@ async function openChat(id) {
 function renderMessages(id) {
   const container = document.getElementById(`chatMsgs-${id}`);
   if (!container) return;
-  container.innerHTML = `<div class="system-msg">\u{1F512} Messages are end-to-end encrypted</div>`;
+  container.innerHTML = `<div class="system-msg">Messages are end-to-end encrypted</div>`;
   activeMessages.forEach(m => {
     const wrap = document.createElement('div');
     wrap.className = `msg-wrap ${m.from === 'me' ? 'sent' : ''}`;
     if (m.type === 'contact' && m.contact) {
       wrap.innerHTML = `
-        <div class="msg-avatar">${m.from === 'me' ? (currentProfile?.emoji || '\u{1F464}') : '\u{1F464}'}</div>
+        <div class="msg-avatar">${m.from === 'me' ? (currentProfile?.emoji || '') : ''}</div>
         <div class="msg-content">
           <div class="contact-share-card">
-            <div class="csc-label">\u{1F4C7} Contact Card Shared</div>
+            <div class="csc-label">Contact Card Shared</div>
             <div class="csc-name">${m.contact.name || ''}</div>
-            <div class="csc-detail">\u{1F4F1} ${m.contact.phone || ''}</div>
-            <div class="csc-detail">\u{1F4BC} ${m.contact.role || ''}</div>
+            <div class="csc-detail">Phone: ${m.contact.phone || ''}</div>
+            <div class="csc-detail">Role: ${m.contact.role || ''}</div>
             ${m.from !== 'me' ? `<button class="csc-accept" onclick="acceptContact('${m.contact.name || ''}','${m.contact.phone || ''}')">Accept & Save Contact</button>` : ''}
           </div>
           <div class="msg-time">${m.time}</div>
@@ -710,7 +716,7 @@ function renderMessages(id) {
       `;
     } else {
       wrap.innerHTML = `
-        <div class="msg-avatar">${m.from === 'me' ? (currentProfile?.emoji || '\u{1F464}') : '\u{1F464}'}</div>
+        <div class="msg-avatar">${m.from === 'me' ? (currentProfile?.emoji || '') : ''}</div>
         <div class="msg-content">
           <div class="msg-bubble">${m.text || ''}</div>
           <div class="msg-time">${m.time}</div>
@@ -746,7 +752,7 @@ async function sendMsg(id) {
   if (thread?.userId) {
     await sb.from('notifications').insert({
       user_id: thread.userId,
-      icon: '\u{1F4AC}',
+      icon: '!',
       text: (currentProfile.name || 'Someone') + ' sent you a message'
     });
   }
@@ -775,7 +781,7 @@ async function sendContactCard(id) {
 }
 
 function acceptContact(name, phone) {
-  showToast(`\u2713 ${name}'s contact saved: ${phone}`, 'success');
+  showToast(`OK ${name}'s contact saved: ${phone}`, 'success');
 }
 
 function subscribeToThread(threadId) {
@@ -809,7 +815,7 @@ function updateProfileUI() {
   document.getElementById('profileAvatar').textContent = talentView.emoji;
   document.getElementById('profileName').textContent = talentView.name;
   document.getElementById('profileRole').textContent = ROLE_LABELS[currentProfile.role] || currentProfile.role;
-  document.getElementById('profileLoc').textContent = '\u{1F4CD} ' + (currentProfile.district || '\u2014') + ', ' + (currentProfile.state || '\u2014');
+  document.getElementById('profileLoc').textContent = 'Location: ' + (currentProfile.district || '-') + ', ' + (currentProfile.state || '-');
   document.getElementById('editName').value = currentProfile.name || '';
   document.getElementById('editPhone').value = currentProfile.phone || '';
   document.getElementById('editDistrict').value = currentProfile.district || '';
@@ -983,8 +989,8 @@ function showToast(msg, type = 'info') {
   if (!c) return;
   const t = document.createElement('div');
   t.className = `toast ${type}`;
-  const icons = { success: '\u2713', error: '\u2715', info: '\u2139' };
-  t.innerHTML = `<span style="font-size:1rem">${icons[type]||'\u2139'}</span> ${msg}`;
+  const icons = { success: 'OK', error: 'ERR', info: 'i' };
+  t.innerHTML = `<span style="font-size:1rem">${icons[type]||'i'}</span> ${msg}`;
   c.appendChild(t);
   setTimeout(() => { t.style.opacity='0'; t.style.transform='translateX(20px)'; t.style.transition='all 0.3s'; setTimeout(() => t.remove(), 300); }, 3000);
 }
@@ -1024,7 +1030,7 @@ function toggleTheme() {
 function updateThemeUI(theme) {
   const icon = document.getElementById('themeIcon');
   const label = document.getElementById('themeLabel');
-  if (icon) icon.textContent = theme === 'light' ? '\u2600\uFE0F' : '\u{1F319}';
+  if (icon) icon.textContent = theme === 'light' ? 'L' : 'D';
   if (label) label.textContent = theme === 'light' ? 'Light Mode' : 'Dark Mode';
 }
 

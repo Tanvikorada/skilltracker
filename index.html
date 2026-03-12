@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkillCensus â€” India's Human Talent Map</title>
-<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<title>SkillCensus  India's Human Talent Map</title>
+<link href="https://fonts.googleapis.com/css2"family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -95,7 +95,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 .hero-map-wrap{position:relative;opacity:0;animation:fadeLeft 1s 0.4s forwards;}
 @keyframes fadeLeft{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
 .hero-map-frame{border:1px solid var(--border2);overflow:hidden;position:relative;height:520px;box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 0 1px var(--border);}
-.hero-map-frame::before{content:'LIVE MAP â€” INDIA TALENT DISTRIBUTION';position:absolute;top:12px;left:14px;font-size:0.6rem;letter-spacing:0.14em;color:var(--text3);z-index:10;text-transform:uppercase;}
+.hero-map-frame::before{content:'LIVE MAP  INDIA TALENT DISTRIBUTION';position:absolute;top:12px;left:14px;font-size:0.6rem;letter-spacing:0.14em;color:var(--text3);z-index:10;text-transform:uppercase;}
 .hero-map-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,7,13,0.3) 0%,transparent 30%,transparent 70%,rgba(4,7,13,0.5) 100%);pointer-events:none;z-index:5;}
 #heroMap{width:100%;height:100%;}
 .map-overlay-badge{position:absolute;bottom:14px;left:14px;z-index:10;background:rgba(4,7,13,0.85);border:1px solid var(--border2);padding:10px 14px;backdrop-filter:blur(10px);}
@@ -532,7 +532,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
   <div class="modal-box" id="modalBox">
     <div class="modal-header">
       <div class="modal-title" id="modalTitle">Profile</div>
-      <button class="modal-close" onclick="closeModal()">âœ•</button>
+      <button class="modal-close" onclick="closeModal()"></button>
     </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
@@ -554,20 +554,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     </div>
     <div class="nav-actions">
       <button class="btn-ghost" onclick="showAuthPage('login')">Sign In</button>
-      <button class="btn-accent" onclick="showAuthPage('register')">Join Free â†’</button>
+      <button class="btn-accent" onclick="showAuthPage('register')">Join Free </button>
       <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
   <!-- MOBILE OVERLAY -->
   <div class="mobile-overlay" id="mobileMenu">
-    <button class="mob-close" onclick="document.getElementById('mobileMenu').classList.remove('open')" aria-label="Close menu">âœ•</button>
+    <button class="mob-close" onclick="document.getElementById('mobileMenu').classList.remove('open')" aria-label="Close menu"></button>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showPage('landingPage')">Home</div>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showPage('landingPage');setTimeout(()=>document.querySelector('.features').scrollIntoView({behavior:'smooth'}),100)">How It Works</div>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('login')">Find Talent</div>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('register')">Register Skills</div>
     <div class="mob-link" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('login')">Sign In</div>
-    <div class="mob-link" style="color:var(--accent)" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('register')">Join Free â†’</div>
+    <div class="mob-link" style="color:var(--accent)" onclick="document.getElementById('mobileMenu').classList.remove('open');showAuthPage('register')">Join Free </div>
   </div>
 
   <section class="hero">
@@ -576,10 +576,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <div class="hero-eyebrow">India's First Open Talent Network</div>
         <h1 class="hero-title">Every <span class="italic">skill.</span><br>Every <span class="orange">district.</span><br>Findable.</h1>
         <p class="hero-sub">
-          <strong>450 million</strong> skilled workers are invisible to opportunity in India. Welders, coders, nurses, artisans â€” they exist everywhere. SkillCensus makes them discoverable. <strong>No middlemen. No fees. Ever.</strong>
+          <strong>450 million</strong> skilled workers are invisible to opportunity in India. Welders, coders, nurses, artisans  they exist everywhere. SkillCensus makes them discoverable. <strong>No middlemen. No fees. Ever.</strong>
         </p>
         <div class="hero-ctas">
-          <button class="btn-primary-lg" onclick="showAuthPage('register')">Register Your Skills â†’</button>
+          <button class="btn-primary-lg" onclick="showAuthPage('register')">Register Your Skills </button>
           <button class="btn-outline-lg" onclick="showAuthPage('login')">Find Talent Near Me</button>
         </div>
         <div class="hero-stats">
@@ -599,7 +599,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           </div>
           <div class="h-stat-divider"></div>
           <div class="h-stat">
-            <div class="h-stat-num">â‚¹0</div>
+            <div class="h-stat-num">0</div>
             <div class="h-stat-label">Forever Free</div>
           </div>
         </div>
@@ -624,37 +624,37 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-num">01</div>
-          <div class="feature-icon">ðŸ—ºï¸</div>
+          <div class="feature-icon"></div>
           <div class="feature-title">Real-Time Talent Map</div>
           <div class="feature-desc">Live Leaflet map showing skill clusters across every district. Zoom to your street. See who has what skill, right now, near you.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">02</div>
-          <div class="feature-icon">ðŸ’¬</div>
+          <div class="feature-icon"></div>
           <div class="feature-title">Built-in Secure Chat</div>
           <div class="feature-desc">Connect and communicate directly on-platform. Share contact details only when both parties agree. No cold calls, no spam.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">03</div>
-          <div class="feature-icon">âœ…</div>
+          <div class="feature-icon"></div>
           <div class="feature-title">Skill Verification</div>
-          <div class="feature-desc">Government certificate uploads, peer endorsements, and employer references â€” multiple layers of trust you can rely on.</div>
+          <div class="feature-desc">Government certificate uploads, peer endorsements, and employer references  multiple layers of trust you can rely on.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">04</div>
-          <div class="feature-icon">ðŸ“Š</div>
+          <div class="feature-icon"></div>
           <div class="feature-title">Personal Dashboard</div>
-          <div class="feature-desc">Track your profile views, incoming requests, conversation history, and skill demand trends â€” all in one place.</div>
+          <div class="feature-desc">Track your profile views, incoming requests, conversation history, and skill demand trends  all in one place.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">05</div>
-          <div class="feature-icon">ðŸŒ</div>
+          <div class="feature-icon"></div>
           <div class="feature-title">Works for Everyone</div>
           <div class="feature-desc">Optimized for 2G. Available in 10 Indian languages. Designed for the 95% that LinkedIn never reached.</div>
         </div>
         <div class="feature-card">
           <div class="feature-num">06</div>
-          <div class="feature-icon">ðŸ”’</div>
+          <div class="feature-icon"></div>
           <div class="feature-title">Privacy First</div>
           <div class="feature-desc">Your phone number and personal details stay hidden until YOU choose to share them. Full control, always.</div>
         </div>
@@ -667,7 +667,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     <div class="footer-inner">
       <div>
         <div class="footer-brand">SkillCensus</div>
-        <div class="footer-desc">India's first open talent network. Connecting 450 million skilled workers with opportunity â€” no middlemen, no fees, ever.</div>
+        <div class="footer-desc">India's first open talent network. Connecting 450 million skilled workers with opportunity  no middlemen, no fees, ever.</div>
       </div>
       <div>
         <div class="footer-heading">Platform</div>
@@ -692,11 +692,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       </div>
     </div>
     <div class="footer-bottom">
-      <span>Â© 2026 SkillCensus. Made with â¤ï¸ for India.</span>
+      <span> 2026 SkillCensus. Made with  for India.</span>
       <div class="footer-social">
-        <a href="#" aria-label="Twitter">ð•</a>
+        <a href="#" aria-label="Twitter"></a>
         <a href="#" aria-label="LinkedIn">in</a>
-        <a href="#" aria-label="GitHub">âŒ˜</a>
+        <a href="#" aria-label="GitHub"></a>
       </div>
     </div>
   </footer>
@@ -723,12 +723,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         </div>
         <div class="auth-form-group">
           <label class="auth-label">Password</label>
-          <input class="auth-input" id="loginPass" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+          <input class="auth-input" id="loginPass" type="password" placeholder="">
         </div>
-        <button class="auth-submit" onclick="handleLogin()">Sign In â†’</button>
+        <button class="auth-submit" onclick="handleLogin()">Sign In </button>
         <div class="auth-divider" id="demoDivider" style="display:none">or</div>
-        <button class="btn-ghost" id="demoBtn" style="width:100%;padding:11px;margin-bottom:8px;display:none" onclick="loadSampleData()">ðŸŽ¯ Load Sample Data</button>
-        <div class="auth-note">Don't have an account? <a onclick="switchAuthTab('register')">Create one free â†’</a></div>
+        <button class="btn-ghost" id="demoBtn" style="width:100%;padding:11px;margin-bottom:8px;display:none" onclick="loadSampleData()"> Load Sample Data</button>
+        <div class="auth-note">Don't have an account" <a onclick="switchAuthTab('register')">Create one free </a></div>
       </div>
 
       <!-- REGISTER FORM -->
@@ -736,11 +736,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <div class="auth-label" style="margin-bottom:10px">I am a...</div>
         <div class="role-select" id="roleSelect">
           <div class="role-option selected" data-role="talent" onclick="selectRole(this)">
-            <span class="role-icon">ðŸ§‘â€ðŸ”§</span>
+            <span class="role-icon"></span>
             <div class="role-name">Talent Provider<br><span style="color:var(--text3);font-size:0.6rem">I have skills to offer</span></div>
           </div>
           <div class="role-option" data-role="seeker" onclick="selectRole(this)">
-            <span class="role-icon">ðŸ¢</span>
+            <span class="role-icon"></span>
             <div class="role-name">Talent Seeker<br><span style="color:var(--text3);font-size:0.6rem">I need to hire / connect</span></div>
           </div>
         </div>
@@ -784,8 +784,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           <div class="pw-strength-label" id="pwLabel"></div>
           <div class="field-error" id="errRegPass"></div>
         </div>
-        <button class="auth-submit" onclick="handleRegister()">Create Account â†’</button>
-        <div class="auth-note">Already have an account? <a onclick="switchAuthTab('login')">Sign in â†’</a></div>
+        <button class="auth-submit" onclick="handleRegister()">Create Account </button>
+        <div class="auth-note">Already have an account" <a onclick="switchAuthTab('login')">Sign in </a></div>
       </div>
     </div>
   </div>
@@ -801,7 +801,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       SkillCensus
     </div>
     <div class="sidebar-user">
-      <div class="user-avatar" id="sidebarAvatar">ðŸ‘¤</div>
+      <div class="user-avatar" id="sidebarAvatar"></div>
       <div class="user-info">
         <div class="user-name" id="sidebarName">User</div>
         <div class="user-role" id="sidebarRole">Talent</div>
@@ -810,36 +810,36 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     <div class="sidebar-nav">
       <div class="nav-section-label">Main</div>
       <div class="sidebar-item active" onclick="showDashSection('overview',this)">
-        <span class="s-icon">â¬¡</span> Overview
+        <span class="s-icon"></span> Overview
       </div>
       <div class="sidebar-item" onclick="showDashSection('map',this)">
-        <span class="s-icon">ðŸ—º</span> Talent Map
+        <span class="s-icon"></span> Talent Map
       </div>
       <div class="sidebar-item" onclick="showDashSection('discover',this)">
-        <span class="s-icon">ðŸ”</span> Discover
+        <span class="s-icon"></span> Discover
       </div>
       <div class="sidebar-item" onclick="showDashSection('chat',this)">
-        <span class="s-icon">ðŸ’¬</span> Messages
+        <span class="s-icon"></span> Messages
         <span class="s-badge" id="msgBadge">3</span>
       </div>
       <div class="nav-section-label">My Account</div>
       <div class="sidebar-item" onclick="showDashSection('profile',this)">
-        <span class="s-icon">ðŸ‘¤</span> My Profile
+        <span class="s-icon"></span> My Profile
       </div>
       <div class="sidebar-item" onclick="showDashSection('connections',this)">
-        <span class="s-icon">ðŸ”—</span> Connections
+        <span class="s-icon"></span> Connections
       </div>
     </div>
     <div class="sidebar-bottom">
       <div class="theme-toggle" onclick="toggleTheme()">
-        <span class="t-icon" id="themeIcon">ðŸŒ™</span>
+        <span class="t-icon" id="themeIcon"></span>
         <span id="themeLabel">Dark Mode</span>
       </div>
       <div class="sidebar-item" onclick="exportProfile()" style="margin-top:4px">
-        <span class="s-icon">ðŸ“¥</span> Export Profile
+        <span class="s-icon"></span> Export Profile
       </div>
       <div class="sidebar-item" onclick="logout()" style="color:var(--accent2)">
-        <span class="s-icon">â¬¡</span> Sign Out
+        <span class="s-icon"></span> Sign Out
       </div>
     </div>
   </div>
@@ -849,7 +849,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
     <div class="dash-topbar">
       <div class="topbar-title" id="topbarTitle">Overview</div>
       <div class="topbar-right" style="position:relative">
-        <button class="notif-btn" onclick="toggleNotifPanel()" aria-label="Notifications">ðŸ””<div class="notif-dot" id="notifDot"></div></button>
+        <button class="notif-btn" onclick="toggleNotifPanel()" aria-label="Notifications"><div class="notif-dot" id="notifDot"></div></button>
         <div class="notif-panel" id="notifPanel">
           <div class="notif-header">Notifications <button class="notif-clear" onclick="clearNotifs()">Clear All</button></div>
           <div id="notifList"></div>
@@ -866,17 +866,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           <div class="stat-card" style="cursor:pointer" onclick="showDashSection('profile',document.querySelector('[onclick*=profile]'))">
             <div class="sc-label">Profile Views</div>
             <div class="sc-value" style="color:var(--accent)" id="ov-views">0</div>
-            <div class="sc-change">â†‘ 24% this week</div>
+            <div class="sc-change"> 24% this week</div>
           </div>
           <div class="stat-card" style="cursor:pointer" onclick="showDashSection('discover',document.querySelector('[onclick*=discover]'))">
             <div class="sc-label">Incoming Requests</div>
             <div class="sc-value" style="color:var(--gold)" id="ov-req">0</div>
-            <div class="sc-change">â†‘ 3 new today</div>
+            <div class="sc-change"> 3 new today</div>
           </div>
           <div class="stat-card">
             <div class="sc-label">Connections</div>
             <div class="sc-value" style="color:var(--accent3)" id="ov-conn">0</div>
-            <div class="sc-change">â†‘ 5 this month</div>
+            <div class="sc-change"> 5 this month</div>
           </div>
           <div class="stat-card">
             <div class="sc-label">Messages</div>
@@ -888,7 +888,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <!-- Mini map -->
         <div class="map-section-wrap" style="margin-bottom:28px">
           <div class="map-section-header">
-            <div class="map-section-title">ðŸ—º Talent Near You â€” Live</div>
+            <div class="map-section-title"> Talent Near You  Live</div>
             <div class="map-controls">
               <button class="map-ctrl-btn active" onclick="filterMapCategory('all',this)">All</button>
               <button class="map-ctrl-btn" onclick="filterMapCategory('tech',this)">Tech</button>
@@ -903,7 +903,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <div class="map-section-wrap">
           <div class="map-section-header">
             <div>
-              <div class="map-section-title">ðŸ“ˆ Trending Skills This Month</div>
+              <div class="map-section-title"> Trending Skills This Month</div>
               <div style="font-size:0.65rem;color:var(--text3);margin-top:2px">Most searched across India</div>
             </div>
           </div>
@@ -920,7 +920,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       <div class="dash-section" id="sec-map">
         <div class="section-header">
           <div>
-            <div class="section-h-title">Talent Map â€” India</div>
+            <div class="section-h-title">Talent Map  India</div>
             <div class="section-h-sub">Click any marker to view profile</div>
           </div>
         </div>
@@ -947,7 +947,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         </div>
         <div class="search-filter-bar">
           <div class="s-input-wrap">
-            <span class="s-icon-abs">ðŸ”</span>
+            <span class="s-icon-abs"></span>
             <input class="s-input" id="discoverSearch" placeholder="Search by skill, name, or location..." oninput="filterTalents()">
           </div>
           <select class="filter-select" id="discoverCat" onchange="filterTalents()">
@@ -978,7 +978,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       <div class="dash-section" id="sec-chat" style="padding:0;margin:-28px">
         <div class="chat-layout">
           <div class="chat-list">
-            <div class="chat-list-header">ðŸ’¬ Messages</div>
+            <div class="chat-list-header"> Messages</div>
             <div class="chat-search">
               <input class="chat-search-input" placeholder="Search conversations..." oninput="filterChats(this.value)">
             </div>
@@ -986,7 +986,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           </div>
           <div class="chat-window" id="chatWindow">
             <div class="chat-empty" id="chatEmpty">
-              <div class="chat-empty-icon">ðŸ’¬</div>
+              <div class="chat-empty-icon"></div>
               <div class="chat-empty-text">Select a conversation</div>
             </div>
             <!-- Active chat injected here -->
@@ -1002,10 +1002,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         <div class="profile-wrap">
           <div>
             <div class="profile-card">
-              <div class="profile-avatar-lg" id="profileAvatar">ðŸ‘¤</div>
-              <div class="profile-name-lg" id="profileName">â€”</div>
-              <div class="profile-role-lg" id="profileRole">â€”</div>
-              <div class="profile-loc-lg" id="profileLoc">â€”</div>
+              <div class="profile-avatar-lg" id="profileAvatar"></div>
+              <div class="profile-name-lg" id="profileName"></div>
+              <div class="profile-role-lg" id="profileRole"></div>
+              <div class="profile-loc-lg" id="profileLoc"></div>
               <div class="completion-bar-wrap" id="completionWrap"></div>
               <div class="profile-stats-row">
                 <div class="ps-item"><div class="ps-val" id="pViews">142</div><div class="ps-lbl">Views</div></div>
@@ -1056,7 +1056,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
                   <option value="no">Not Available</option>
                 </select>
               </div>
-              <button class="auth-submit" onclick="saveProfile()">Save Changes â†’</button>
+              <button class="auth-submit" onclick="saveProfile()">Save Changes </button>
             </div>
           </div>
         </div>
@@ -1072,7 +1072,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
         </div>
         <div class="conn-search">
           <div class="s-input-wrap">
-            <span class="s-icon-abs">ðŸ”</span>
+            <span class="s-icon-abs"></span>
             <input class="s-input" id="connSearch" placeholder="Search connections..." oninput="filterConnections()">
           </div>
         </div>
