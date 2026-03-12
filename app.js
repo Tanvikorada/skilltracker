@@ -1,16 +1,44 @@
-/* SkillCensus - Supabase powered app */
-const SUPABASE_URL = 'https://evfjdigecncbxqnweuhb.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2ZmpkaWdlY25jYnhxbndldWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzkxMzUsImV4cCI6MjA4ODkxNTEzNX0.F_BJoZakL0NsKMq5rhKm_l5z5M28IN6KDBasr3XrVrg';
+﻿
+/* SkillCensus - Firebase powered app */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit,
+  serverTimestamp,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-const supabaseConfigured =
-  typeof window !== 'undefined' &&
-  window.supabase &&
-  SUPABASE_URL &&
-  SUPABASE_ANON_KEY &&
-  !SUPABASE_URL.includes('YOUR_PROJECT') &&
-  !SUPABASE_ANON_KEY.includes('YOUR_ANON_KEY');
+const FIREBASE_CONFIG = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-const sb = supabaseConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const firebaseConfigured = FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.includes('YOUR_');
+const fbApp = firebaseConfigured ? initializeApp(FIREBASE_CONFIG) : null;
+const auth = fbApp ? getAuth(fbApp) : null;
+const db = fbApp ? getFirestore(fbApp) : null;
 
 // ===================== STATE =====================
 let authUser = null;
@@ -31,15 +59,15 @@ let myConnections = [];
 let TRENDING = [];
 let endorsementCounts = {};
 let activeMessages = [];
-let activeThreadSub = null;
+let activeThreadUnsub = null;
 
 const ROLE_LABELS = { talent: 'Talent Provider', seeker: 'Talent Seeker' };
 const CAT_COLORS = {tech:'#00d4ff',trade:'#ff5733',health:'#00ff88',agri:'#f5c842',edu:'#c084fc',creative:'#f472b6'};
 
-// ===================== SUPABASE HELPERS =====================
-function requireSupabase() {
-  if (!sb) {
-    showToast('Supabase not configured. Update SUPABASE_URL and SUPABASE_ANON_KEY in app.js', 'error');
+// ===================== FIREBASE HELPERS =====================
+function requireFirebase() {
+  if (!fbApp) {
+    showToast('Firebase not configured. Update FIREBASE_CONFIG in app.js', 'error');
     return false;
   }
   return true;
@@ -71,9 +99,9 @@ function profileToTalent(p) {
     lat: p.lat,
     lng: p.lng,
     skills: normalizeSkills(p.skills),
-    primary: p.primary_role || (p.role === 'talent' ? 'Talent Provider' : 'Talent Seeker'),
-    exp: (p.exp_years ?? 0) + ' yrs',
-    verify: p.verify_status || 'self',
+    primary: p.primaryRole || (p.role === 'talent' ? 'Talent Provider' : 'Talent Seeker'),
+    exp: (p.expYears ?? 0) + ' yrs',
+    verify: p.verifyStatus || 'self',
     avail: p.avail || 'open',
     category: p.category || 'tech',
     bio: p.bio || '',
@@ -85,7 +113,7 @@ function profileToTalent(p) {
 
 function formatTime(ts) {
   if (!ts) return '';
-  const d = new Date(ts);
+  const d = ts instanceof Date ? ts : ts.toDate ? ts.toDate() : new Date(ts);
   const now = new Date();
   const diffMs = now - d;
   if (diffMs < 60000) return 'now';
@@ -93,7 +121,6 @@ function formatTime(ts) {
   if (diffMs < 86400000) return Math.floor(diffMs / 3600000) + 'h';
   return d.toLocaleDateString([], {month:'short', day:'numeric'});
 }
-
 // ===================== PAGE MANAGEMENT =====================
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => { p.classList.remove('active','page-transition'); p.style.display='none'; });
@@ -172,22 +199,25 @@ function checkPwStrength(v) {
 }
 
 async function handleLogin() {
-  if (!requireSupabase()) return;
+  if (!requireFirebase()) return;
   const email = document.getElementById('loginEmail').value.trim();
   const pass = document.getElementById('loginPass').value;
   if (!email) { showFieldError('loginEmail'); showToast('Please enter your email','error'); return; }
   if (!pass) { showFieldError('loginPass'); showToast('Please enter your password','error'); return; }
 
-  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
-  if (error) { showToast(error.message, 'error'); return; }
-  authUser = data.user;
-  await loadCurrentProfile();
-  if (!currentProfile) { showToast('Profile not found. Please complete registration.', 'error'); return; }
-  afterLogin();
+  try {
+    const res = await signInWithEmailAndPassword(auth, email, pass);
+    authUser = res.user;
+    await loadCurrentProfile();
+    if (!currentProfile) { showToast('Profile not found. Please complete registration.', 'error'); return; }
+    afterLogin();
+  } catch (e) {
+    showToast(e.message || 'Login failed', 'error');
+  }
 }
 
 async function handleRegister() {
-  if (!requireSupabase()) return;
+  if (!requireFirebase()) return;
   const name = document.getElementById('regName').value.trim();
   const email = document.getElementById('regEmail').value.trim();
   const phone = document.getElementById('regPhone').value.trim();
@@ -200,49 +230,42 @@ async function handleRegister() {
   if (!pass || pass.length < 6) { showFieldError('regPass'); valid = false; }
   if (!valid) { showToast('Please fix the highlighted fields','error'); return; }
 
-  const { data, error } = await sb.auth.signUp({
-    email,
-    password: pass,
-    options: { data: { name, role: selectedRole } }
-  });
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, pass);
+    authUser = res.user;
+    await updateProfile(authUser, { displayName: name });
 
-  if (error) { showToast(error.message, 'error'); return; }
+    const baseProfile = {
+      id: authUser.uid,
+      role: selectedRole,
+      name,
+      email,
+      phone,
+      emoji: getAvatarLetter(name),
+      state,
+      district: '',
+      skills: [],
+      primaryRole: selectedRole === 'talent' ? (document.getElementById('regCategory').value || 'Professional') : 'Talent Seeker',
+      expYears: 0,
+      verifyStatus: 'self',
+      avail: 'open',
+      category: document.getElementById('regCategory').value || 'tech',
+      bio: '',
+      rating: 5.0,
+      views: 0,
+      lat: null,
+      lng: null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    };
 
-  if (!data.user) {
-    showToast('Check your email to confirm your account.', 'info');
-    switchAuthTab('login');
-    return;
+    await setDoc(doc(db, 'profiles', authUser.uid), baseProfile);
+    await loadCurrentProfile();
+    showToast('Welcome, ' + name + '! Account created.', 'success');
+    afterLogin();
+  } catch (e) {
+    showToast(e.message || 'Registration failed', 'error');
   }
-
-  authUser = data.user;
-  const baseProfile = {
-    id: data.user.id,
-    role: selectedRole,
-    name,
-    email,
-    phone,
-    emoji: getAvatarLetter(name),
-    state,
-    district: '',
-    skills: [],
-    primary_role: selectedRole === 'talent' ? (document.getElementById('regCategory').value || 'Professional') : 'Talent Seeker',
-    exp_years: 0,
-    verify_status: 'self',
-    avail: 'open',
-    category: document.getElementById('regCategory').value || 'tech',
-    bio: '',
-    rating: 5.0,
-    views: 0,
-    lat: null,
-    lng: null
-  };
-
-  const { error: upsertErr } = await sb.from('profiles').upsert(baseProfile);
-  if (upsertErr) { showToast(upsertErr.message, 'error'); return; }
-
-  await loadCurrentProfile();
-  showToast('Welcome, ' + name + '! Account created.', 'success');
-  afterLogin();
 }
 
 async function afterLogin() {
@@ -258,31 +281,26 @@ async function afterLogin() {
 }
 
 async function logout() {
-  if (!requireSupabase()) return;
-  await sb.auth.signOut();
+  if (!requireFirebase()) return;
+  await signOut(auth);
   authUser = null;
   currentProfile = null;
   currentUser = null;
   showPage('landingPage');
   showToast('Signed out successfully','info');
 }
-
 // ===================== DATA LOADERS =====================
 async function loadCurrentProfile() {
-  if (!requireSupabase()) return;
-  const session = await sb.auth.getSession();
-  authUser = session?.data?.session?.user || authUser;
-  if (!authUser) { currentProfile = null; return; }
-  const { data, error } = await sb.from('profiles').select('*').eq('id', authUser.id).maybeSingle();
-  if (error) { showToast(error.message, 'error'); return; }
-  currentProfile = data || null;
+  if (!requireFirebase() || !authUser) return;
+  const snap = await getDoc(doc(db, 'profiles', authUser.uid));
+  currentProfile = snap.exists() ? snap.data() : null;
 }
 
 async function loadTalents() {
-  if (!requireSupabase()) return;
-  const { data, error } = await sb.from('profiles').select('*').eq('role', 'talent');
-  if (error) { showToast(error.message, 'error'); return; }
-  TALENTS = (data || []).map(profileToTalent);
+  if (!requireFirebase()) return;
+  const qTal = query(collection(db, 'profiles'), where('role', '==', 'talent'));
+  const snap = await getDocs(qTal);
+  TALENTS = snap.docs.map(d => profileToTalent(d.data()));
   updateTrendingStats();
   renderTalentGrid();
   refreshDashMarkers();
@@ -290,72 +308,65 @@ async function loadTalents() {
 }
 
 async function loadConnections() {
-  if (!requireSupabase() || !currentProfile) return;
-  const { data, error } = await sb
-    .from('connections')
-    .select('target_id, target:profiles!connections_target_id_fkey(*)')
-    .eq('user_id', currentProfile.id);
-  if (error) { showToast(error.message, 'error'); return; }
-  myConnections = (data || []).map(row => profileToTalent(row.target));
+  if (!requireFirebase() || !currentProfile) return;
+  const qConn = query(collection(db, 'connections'), where('userId', '==', currentProfile.id));
+  const snap = await getDocs(qConn);
+  const targetIds = snap.docs
+    .map(d => d.data())
+    .filter(d => !d.deleted)
+    .map(d => d.targetId);
+  const profiles = await Promise.all(targetIds.map(id => getDoc(doc(db, 'profiles', id))));
+  myConnections = profiles.filter(p => p.exists()).map(p => profileToTalent(p.data()));
   renderConnections();
 }
 
 async function loadThreads() {
-  if (!requireSupabase() || !currentProfile) return;
-  const { data, error } = await sb
-    .from('threads')
-    .select('id, user1, user2, updated_at, user1_profile:profiles!threads_user1_fkey(id,name,emoji), user2_profile:profiles!threads_user2_fkey(id,name,emoji)')
-    .or(`user1.eq.${currentProfile.id},user2.eq.${currentProfile.id}`)
-    .order('updated_at', { ascending: false });
-  if (error) { showToast(error.message, 'error'); return; }
+  if (!requireFirebase() || !currentProfile) return;
+  const q1 = query(collection(db, 'threads'), where('user1', '==', currentProfile.id));
+  const q2 = query(collection(db, 'threads'), where('user2', '==', currentProfile.id));
+  const [s1, s2] = await Promise.all([getDocs(q1), getDocs(q2)]);
+  const threads = [...s1.docs, ...s2.docs].map(d => ({ id: d.id, ...d.data() }));
+  const unique = new Map();
+  threads.forEach(t => unique.set(t.id, t));
+  const merged = Array.from(unique.values());
 
-  const threads = data || [];
-  const threadIds = threads.map(t => t.id);
-  let lastByThread = {};
-  if (threadIds.length) {
-    const { data: msgs } = await sb
-      .from('messages')
-      .select('thread_id, body, type, created_at, sender_id, payload')
-      .in('thread_id', threadIds)
-      .order('created_at', { ascending: false })
-      .limit(200);
-    (msgs || []).forEach(m => { if (!lastByThread[m.thread_id]) lastByThread[m.thread_id] = m; });
-  }
+  const convs = [];
+  for (const t of merged) {
+    const otherId = t.user1 === currentProfile.id ? t.user2 : t.user1;
+    const otherSnap = await getDoc(doc(db, 'profiles', otherId));
+    const other = otherSnap.exists() ? otherSnap.data() : { name: 'Unknown' };
 
-  conversations = threads.map(t => {
-    const other = t.user1 === currentProfile.id ? t.user2_profile : t.user1_profile;
-    const last = lastByThread[t.id];
-    return {
+    const msgQ = query(collection(db, 'threads', t.id, 'messages'), orderBy('createdAt', 'desc'), limit(1));
+    const msgSnap = await getDocs(msgQ);
+    const last = msgSnap.docs[0]?.data();
+
+    convs.push({
       id: t.id,
-      userId: other?.id,
-      name: other?.name || 'Unknown',
-      emoji: other?.emoji || getAvatarLetter(other?.name),
+      userId: otherId,
+      name: other.name || 'Unknown',
+      emoji: other.emoji || getAvatarLetter(other.name),
       lastMsg: last?.type === 'contact' ? 'Contact Card' : (last?.body || ''),
-      time: formatTime(last?.created_at || t.updated_at),
+      time: formatTime(last?.createdAt || t.updatedAt),
       unread: 0,
       online: false,
       messages: []
-    };
-  });
+    });
+  }
 
+  conversations = convs;
   renderChatList();
 }
 
 async function loadNotifications() {
-  if (!requireSupabase() || !currentProfile) return;
-  const { data, error } = await sb
-    .from('notifications')
-    .select('*')
-    .eq('user_id', currentProfile.id)
-    .order('created_at', { ascending: false })
-    .limit(50);
-  if (error) { showToast(error.message, 'error'); return; }
-  notifications = (data || []).map(n => ({
-    id: n.id,
-    icon: n.icon || '!',
-    text: n.text || '',
-    time: formatTime(n.created_at),
-    read: !!n.read
+  if (!requireFirebase() || !currentProfile) return;
+  const qNot = query(collection(db, 'notifications'), where('userId', '==', currentProfile.id), orderBy('createdAt', 'desc'), limit(50));
+  const snap = await getDocs(qNot);
+  notifications = snap.docs.map(d => ({
+    id: d.id,
+    icon: d.data().icon || '!',
+    text: d.data().text || '',
+    time: formatTime(d.data().createdAt),
+    read: !!d.data().read
   }));
   renderNotifList();
 }
@@ -404,13 +415,12 @@ function addDashMarker(t, map, arr) {
     weight: 1,
     fillColor: color,
     fillOpacity: 0.7
-  }).addTo(map).bindPopup(`<strong>${t.name}</strong><br>${t.primary}`);
+  }).addTo(map).bindPopup('<strong>' + t.name + '</strong><br>' + t.primary);
   arr.push(marker);
 }
 
 function refreshHeroMarkers() {
   if (!heroMapObj) return;
-  // no markers on hero for now
 }
 
 function refreshDashMarkers() {
@@ -426,7 +436,6 @@ function refreshFullMarkers() {
   fullMarkers = [];
   TALENTS.forEach(t => addDashMarker(t, fullMapObj, fullMarkers));
 }
-
 // ===================== OVERVIEW =====================
 function animateOverviewStats() {
   const unreadMsg = conversations.reduce((a,c)=>a+(c.unread||0),0);
@@ -522,7 +531,7 @@ function renderConnections(data) {
       <div class="tc-skills">${t.skills.slice(0,3).map(s=>'<div class="s-pill">'+s+'</div>').join('')}</div>
       <div class="tc-actions">
         <button class="tc-btn primary" onclick="startChat('${t.id}');event.stopPropagation()">Message</button>
-        <button class="tc-btn" onclick="removeConnection('${t.id}');event.stopPropagation()" style="color:var(--accent2);border-color:var(--accent2)">X Remove</button>
+        <button class="tc-btn" onclick="removeConnection('${t.id}');event.stopPropagation()" style="color:var(--accent2);border-color:var(--accent2)">Remove</button>
       </div>
     `;
     grid.appendChild(card);
@@ -530,9 +539,9 @@ function renderConnections(data) {
 }
 
 async function removeConnection(id) {
-  if (!requireSupabase() || !currentProfile) return;
-  const { error } = await sb.from('connections').delete().eq('user_id', currentProfile.id).eq('target_id', id);
-  if (error) { showToast(error.message, 'error'); return; }
+  if (!requireFirebase() || !currentProfile) return;
+  const key = currentProfile.id + '_' + id;
+  await setDoc(doc(db, 'connections', key), { deleted: true }, { merge: true });
   await loadConnections();
   showToast('Connection removed','info');
 }
@@ -573,16 +582,25 @@ async function openTalentModal(id) {
 }
 
 async function addConnection(id) {
-  if (!requireSupabase() || !currentProfile) return;
+  if (!requireFirebase() || !currentProfile) return;
   if (id === currentProfile.id) { showToast('You cannot connect with yourself','info'); return; }
-  const { error } = await sb.from('connections').insert({ user_id: currentProfile.id, target_id: id });
-  if (error) { showToast(error.message, 'error'); return; }
-  await sb.from('notifications').insert({ user_id: id, icon: '!', text: (currentProfile.name || 'Someone') + ' connected with you' });
+  const key = currentProfile.id + '_' + id;
+  await setDoc(doc(db, 'connections', key), {
+    userId: currentProfile.id,
+    targetId: id,
+    createdAt: serverTimestamp()
+  });
+  await addDoc(collection(db, 'notifications'), {
+    userId: id,
+    icon: '!',
+    text: (currentProfile.name || 'Someone') + ' connected with you',
+    createdAt: serverTimestamp(),
+    read: false
+  });
   await loadConnections();
   showToast('Connection added!', 'success');
   closeModal();
 }
-
 // ===================== CHAT =====================
 function renderChatList(filter = '') {
   const list = document.getElementById('chatList');
@@ -594,7 +612,7 @@ function renderChatList(filter = '') {
     div.className = `chat-item${activeChatId === c.id ? ' active' : ''}`;
     div.onclick = () => openChat(c.id);
     div.innerHTML = `
-      <div class="ci-avatar">${c.emoji}${c.online ? '<div class="ci-online"></div>' : ''}</div>
+      <div class="ci-avatar">${c.emoji}</div>
       <div class="ci-info">
         <div class="ci-name">${c.name}</div>
         <div class="ci-preview">${c.lastMsg || ''}</div>
@@ -611,29 +629,31 @@ function renderChatList(filter = '') {
 function filterChats(q) { renderChatList(q); }
 
 async function ensureThreadWithUser(targetId) {
-  if (!requireSupabase() || !currentProfile) return null;
-  const ids = [currentProfile.id, targetId].sort();
-  const { data: existing } = await sb
-    .from('threads')
-    .select('*')
-    .eq('user1', ids[0])
-    .eq('user2', ids[1])
-    .maybeSingle();
-  if (existing) return existing.id;
+  if (!requireFirebase() || !currentProfile) return null;
+  const pair = [currentProfile.id, targetId].sort().join('_');
+  const qThread = query(collection(db, 'threads'), where('pairKey', '==', pair));
+  const snap = await getDocs(qThread);
+  if (!snap.empty) return snap.docs[0].id;
 
-  const { data, error } = await sb
-    .from('threads')
-    .insert({ user1: ids[0], user2: ids[1] })
-    .select()
-    .single();
-  if (error) { showToast(error.message, 'error'); return null; }
+  const docRef = await addDoc(collection(db, 'threads'), {
+    user1: currentProfile.id,
+    user2: targetId,
+    pairKey: pair,
+    updatedAt: serverTimestamp()
+  });
 
-  await sb.from('thread_members').insert([
-    { thread_id: data.id, user_id: ids[0] },
-    { thread_id: data.id, user_id: ids[1] }
-  ]);
+  await setDoc(doc(db, 'threadMembers', docRef.id + '_' + currentProfile.id), {
+    threadId: docRef.id,
+    userId: currentProfile.id,
+    lastReadAt: serverTimestamp()
+  });
+  await setDoc(doc(db, 'threadMembers', docRef.id + '_' + targetId), {
+    threadId: docRef.id,
+    userId: targetId,
+    lastReadAt: serverTimestamp()
+  });
 
-  return data.id;
+  return docRef.id;
 }
 
 async function startChat(talentId) {
@@ -668,32 +688,39 @@ async function openChat(id) {
     <div class="chat-input-area">
       <button class="chat-attach-btn" title="Attach file">Attach</button>
       <textarea class="chat-input" id="chatInput-${id}" placeholder="Type a message..." rows="1" onkeydown="handleChatKey(event,'${id}')"></textarea>
-      <button class="chat-send-btn" onclick="sendMsg('${id}')">></button>
+      <button class="chat-send-btn" onclick="sendMsg('${id}')">&gt;</button>
     </div>
   `;
 
-  const { data, error } = await sb
-    .from('messages')
-    .select('*')
-    .eq('thread_id', id)
-    .order('created_at', { ascending: true });
-  if (error) { showToast(error.message, 'error'); return; }
-  activeMessages = (data || []).map(m => ({
-    id: m.id,
-    from: m.sender_id === currentProfile.id ? 'me' : 'them',
-    text: m.body,
-    time: new Date(m.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}),
-    type: m.type,
-    contact: m.payload || null
-  }));
-  renderMessages(id);
+  if (activeThreadUnsub) {
+    activeThreadUnsub();
+    activeThreadUnsub = null;
+  }
 
-  await sb.from('thread_members').update({ last_read_at: new Date().toISOString() }).eq('thread_id', id).eq('user_id', currentProfile.id);
+  const msgQ = query(collection(db, 'threads', id, 'messages'), orderBy('createdAt', 'asc'));
+  activeThreadUnsub = onSnapshot(msgQ, snap => {
+    activeMessages = snap.docs.map(d => {
+      const m = d.data();
+      return {
+        id: d.id,
+        from: m.senderId === currentProfile.id ? 'me' : 'them',
+        text: m.body,
+        time: formatTime(m.createdAt),
+        type: m.type,
+        contact: m.payload || null
+      };
+    });
+    renderMessages(id, conv);
+  });
 
-  subscribeToThread(id);
+  await setDoc(doc(db, 'threadMembers', id + '_' + currentProfile.id), {
+    threadId: id,
+    userId: currentProfile.id,
+    lastReadAt: serverTimestamp()
+  }, { merge: true });
 }
 
-function renderMessages(id) {
+function renderMessages(id, conv) {
   const container = document.getElementById(`chatMsgs-${id}`);
   if (!container) return;
   container.innerHTML = `<div class="system-msg">Messages are end-to-end encrypted</div>`;
@@ -702,21 +729,21 @@ function renderMessages(id) {
     wrap.className = `msg-wrap ${m.from === 'me' ? 'sent' : ''}`;
     if (m.type === 'contact' && m.contact) {
       wrap.innerHTML = `
-        <div class="msg-avatar">${m.from === 'me' ? (currentProfile?.emoji || '') : ''}</div>
+        <div class="msg-avatar">${m.from === 'me' ? (currentProfile?.emoji || getAvatarLetter(currentProfile?.name)) : (conv?.emoji || getAvatarLetter(conv?.name))}</div>
         <div class="msg-content">
           <div class="contact-share-card">
             <div class="csc-label">Contact Card Shared</div>
             <div class="csc-name">${m.contact.name || ''}</div>
             <div class="csc-detail">Phone: ${m.contact.phone || ''}</div>
             <div class="csc-detail">Role: ${m.contact.role || ''}</div>
-            ${m.from !== 'me' ? `<button class="csc-accept" onclick="acceptContact('${m.contact.name || ''}','${m.contact.phone || ''}')">Accept & Save Contact</button>` : ''}
+            ${m.from !== 'me' ? `<button class="csc-accept" onclick="acceptContact('${m.contact.name || ''}','${m.contact.phone || ''}')">Accept and Save Contact</button>` : ''}
           </div>
           <div class="msg-time">${m.time}</div>
         </div>
       `;
     } else {
       wrap.innerHTML = `
-        <div class="msg-avatar">${m.from === 'me' ? (currentProfile?.emoji || '') : ''}</div>
+        <div class="msg-avatar">${m.from === 'me' ? (currentProfile?.emoji || getAvatarLetter(currentProfile?.name)) : (conv?.emoji || getAvatarLetter(conv?.name))}</div>
         <div class="msg-content">
           <div class="msg-bubble">${m.text || ''}</div>
           <div class="msg-time">${m.time}</div>
@@ -733,81 +760,52 @@ function handleChatKey(e, id) {
 }
 
 async function sendMsg(id) {
-  if (!requireSupabase() || !currentProfile) return;
+  if (!requireFirebase() || !currentProfile) return;
   const input = document.getElementById('chatInput-'+id);
   if (!input) return;
   const text = input.value.trim();
   if (!text) return;
 
-  const { error } = await sb.from('messages').insert({
-    thread_id: id,
-    sender_id: currentProfile.id,
+  await addDoc(collection(db, 'threads', id, 'messages'), {
+    senderId: currentProfile.id,
     body: text,
-    type: 'text'
+    type: 'text',
+    createdAt: serverTimestamp()
   });
-  if (error) { showToast(error.message, 'error'); return; }
   input.value = '';
 
   const thread = conversations.find(c => c.id === id);
   if (thread?.userId) {
-    await sb.from('notifications').insert({
-      user_id: thread.userId,
+    await addDoc(collection(db, 'notifications'), {
+      userId: thread.userId,
       icon: '!',
-      text: (currentProfile.name || 'Someone') + ' sent you a message'
+      text: (currentProfile.name || 'Someone') + ' sent you a message',
+      createdAt: serverTimestamp(),
+      read: false
     });
   }
-
-  await openChat(id);
-  await loadThreads();
 }
 
 async function sendContactCard(id) {
-  if (!requireSupabase() || !currentProfile) return;
+  if (!requireFirebase() || !currentProfile) return;
   const payload = {
     name: currentProfile.name,
     phone: currentProfile.phone || 'N/A',
     role: currentProfile.role === 'talent' ? 'Talent Provider' : 'Talent Seeker'
   };
-  const { error } = await sb.from('messages').insert({
-    thread_id: id,
-    sender_id: currentProfile.id,
+  await addDoc(collection(db, 'threads', id, 'messages'), {
+    senderId: currentProfile.id,
     type: 'contact',
     body: 'Contact Card',
-    payload
+    payload,
+    createdAt: serverTimestamp()
   });
-  if (error) { showToast(error.message, 'error'); return; }
-  await openChat(id);
   showToast('Contact card shared!', 'success');
 }
 
 function acceptContact(name, phone) {
-  showToast(`OK ${name}'s contact saved: ${phone}`, 'success');
+  showToast('Saved: ' + name + ' ' + phone, 'success');
 }
-
-function subscribeToThread(threadId) {
-  if (!sb) return;
-  if (activeThreadSub) {
-    sb.removeChannel(activeThreadSub);
-    activeThreadSub = null;
-  }
-  activeThreadSub = sb.channel('thread-' + threadId)
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages', filter: `thread_id=eq.${threadId}` }, payload => {
-      if (payload?.new) {
-        const m = payload.new;
-        activeMessages.push({
-          id: m.id,
-          from: m.sender_id === currentProfile.id ? 'me' : 'them',
-          text: m.body,
-          time: new Date(m.created_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}),
-          type: m.type,
-          contact: m.payload || null
-        });
-        renderMessages(threadId);
-      }
-    })
-    .subscribe();
-}
-
 // ===================== PROFILE =====================
 function updateProfileUI() {
   if (!currentProfile) return;
@@ -840,9 +838,8 @@ function updateProfileUI() {
 }
 
 async function saveProfile() {
-  if (!requireSupabase() || !currentProfile) return;
+  if (!requireFirebase() || !currentProfile) return;
   const updated = {
-    id: currentProfile.id,
     name: document.getElementById('editName').value.trim() || currentProfile.name,
     phone: document.getElementById('editPhone').value.trim() || currentProfile.phone,
     district: document.getElementById('editDistrict').value.trim(),
@@ -850,12 +847,11 @@ async function saveProfile() {
     bio: document.getElementById('editBio').value.trim(),
     avail: document.getElementById('editAvail').value,
     lat: document.getElementById('editLat')?.value ? parseFloat(document.getElementById('editLat').value) : currentProfile.lat,
-    lng: document.getElementById('editLng')?.value ? parseFloat(document.getElementById('editLng').value) : currentProfile.lng
+    lng: document.getElementById('editLng')?.value ? parseFloat(document.getElementById('editLng').value) : currentProfile.lng,
+    updatedAt: serverTimestamp()
   };
 
-  const { error } = await sb.from('profiles').update(updated).eq('id', currentProfile.id);
-  if (error) { showToast(error.message, 'error'); return; }
-
+  await updateDoc(doc(db, 'profiles', currentProfile.id), updated);
   await loadCurrentProfile();
   await loadTalents();
   updateProfileUI();
@@ -919,22 +915,24 @@ function renderNotifList() {
     list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text3);font-size:0.75rem">No notifications</div>';
     return;
   }
-  list.innerHTML = notifications.map(n => '<div class="notif-item'+(n.read?'':' unread')+'" onclick="markNotifRead('+n.id+')">' +
+  list.innerHTML = notifications.map(n => '<div class="notif-item'+(n.read?'':' unread')+'" onclick="markNotifRead(\''+n.id+'\')">' +
     '<span class="ni-icon">'+n.icon+'</span>' +
     '<span class="ni-text">'+n.text+'</span>' +
     '<span class="ni-time">'+n.time+'</span></div>').join('');
 }
 
 async function markNotifRead(id) {
-  if (!requireSupabase()) return;
-  await sb.from('notifications').update({ read: true }).eq('id', id);
+  if (!requireFirebase()) return;
+  await updateDoc(doc(db, 'notifications', id), { read: true });
   const n = notifications.find(x=>x.id===id);
   if (n) { n.read = true; renderNotifList(); }
 }
 
 async function clearNotifs() {
-  if (!requireSupabase() || !currentProfile) return;
-  await sb.from('notifications').delete().eq('user_id', currentProfile.id);
+  if (!requireFirebase() || !currentProfile) return;
+  const qNot = query(collection(db, 'notifications'), where('userId', '==', currentProfile.id));
+  const snap = await getDocs(qNot);
+  await Promise.all(snap.docs.map(d => updateDoc(d.ref, { read: true })));
   notifications = [];
   renderNotifList();
   showToast('Notifications cleared','info');
@@ -942,21 +940,18 @@ async function clearNotifs() {
 
 // ===================== ENDORSEMENTS =====================
 async function endorseSkill(talentId, skill) {
-  if (!requireSupabase() || !currentProfile) return;
+  if (!requireFirebase() || !currentProfile) return;
   if (talentId === currentProfile.id) { showToast('You cannot endorse yourself','info'); return; }
-  const { error } = await sb.from('endorsements').insert({
-    endorser_id: currentProfile.id,
-    target_id: talentId,
-    skill
+  const key = currentProfile.id + '_' + talentId + '_' + skill;
+  const ref = doc(db, 'endorsements', key);
+  const existing = await getDoc(ref);
+  if (existing.exists()) { showToast('Already endorsed this skill','info'); return; }
+  await setDoc(ref, {
+    endorserId: currentProfile.id,
+    targetId: talentId,
+    skill,
+    createdAt: serverTimestamp()
   });
-  if (error) {
-    if (String(error.message).toLowerCase().includes('duplicate')) {
-      showToast('Already endorsed this skill','info');
-      return;
-    }
-    showToast(error.message, 'error');
-    return;
-  }
   await loadEndorsementsForTalent(talentId);
   showToast('Endorsed "'+skill+'"!','success');
 }
@@ -967,10 +962,12 @@ function getEndorseCount(talentId, skill) {
 }
 
 async function loadEndorsementsForTalent(talentId) {
-  if (!requireSupabase()) return;
-  const { data } = await sb.from('endorsements').select('skill').eq('target_id', talentId);
+  if (!requireFirebase()) return;
+  const qEnd = query(collection(db, 'endorsements'), where('targetId', '==', talentId));
+  const snap = await getDocs(qEnd);
   endorsementCounts = endorsementCounts || {};
-  (data || []).forEach(e => {
+  snap.docs.forEach(d => {
+    const e = d.data();
     const key = talentId + ':' + e.skill;
     endorsementCounts[key] = (endorsementCounts[key] || 0) + 1;
   });
@@ -1092,20 +1089,45 @@ window.addEventListener('DOMContentLoaded', async () => {
   const theme = localStorage.getItem('sc_theme');
   if (theme) { document.documentElement.setAttribute('data-theme', theme); updateThemeUI(theme); }
 
-  if (!requireSupabase()) {
+  if (!requireFirebase()) {
     if (document.getElementById('demoDivider')) document.getElementById('demoDivider').style.display = 'none';
     if (document.getElementById('demoBtn')) document.getElementById('demoBtn').style.display = 'none';
     return;
   }
 
-  const session = await sb.auth.getSession();
-  authUser = session?.data?.session?.user || null;
-  if (authUser) {
-    await loadCurrentProfile();
-    if (currentProfile) {
-      await loadDashData();
-      showDash();
+  onAuthStateChanged(auth, async user => {
+    authUser = user || null;
+    if (authUser) {
+      await loadCurrentProfile();
+      if (currentProfile) {
+        await loadDashData();
+        showDash();
+      }
     }
-  }
+  });
 });
 
+// expose handlers for inline HTML
+window.showAuthPage = showAuthPage;
+window.showPage = showPage;
+window.switchAuthTab = switchAuthTab;
+window.selectRole = selectRole;
+window.handleLogin = handleLogin;
+window.handleRegister = handleRegister;
+window.showDashSection = showDashSection;
+window.toggleNotifPanel = toggleNotifPanel;
+window.clearNotifs = clearNotifs;
+window.filterConnections = filterConnections;
+window.filterTalents = filterTalents;
+window.filterChats = filterChats;
+window.openTalentModal = openTalentModal;
+window.startChat = startChat;
+window.sendMsg = sendMsg;
+window.sendContactCard = sendContactCard;
+window.handleChatKey = handleChatKey;
+window.saveProfile = saveProfile;
+window.exportProfile = exportProfile;
+window.useMyLocation = useMyLocation;
+window.logout = logout;
+window.loadSampleData = loadSampleData;
+window.toggleTheme = toggleTheme;

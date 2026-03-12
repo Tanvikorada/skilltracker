@@ -29,16 +29,7 @@ open index.html
 python -m http.server 8080
 ```
 
-## Supabase Setup (Required for Real Data)
-
-1. Create a Supabase project.
-2. Run the SQL in `supabase_schema.sql`.
-3. Copy your Project URL + anon key into `app.js`.
-4. Deploy on Vercel.
-
-See `SUPABASE_SETUP.md` for details.
-
-## Deploy to Vercel
+## Firebase Setup (Required for Real Data)\n\n1. Create a Firebase project.\n2. Enable Email/Password in Authentication.\n3. Create Firestore Database.\n4. Paste config into `app.js`.\n5. Deploy on Vercel.\n\nSee `FIREBASE_SETUP.md` for details.\n\n## Deploy to Vercel
 
 1. Push this repo to GitHub
 2. Go to [vercel.com](https://vercel.com) â†’ Import project
@@ -48,4 +39,8 @@ See `SUPABASE_SETUP.md` for details.
 ## License
 
 MIT Â© SkillCensus Team
+
+
+
+Legacy Supabase files can be ignored (supabase_schema.sql, SUPABASE_SETUP.md).
 
