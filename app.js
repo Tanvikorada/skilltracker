@@ -51,6 +51,7 @@ let fullMapObj = null;
 let heroMapObj = null;
 let allMarkers = [];
 let fullMarkers = [];
+let heroMarkers = [];
 let discoverPage = 0;
 const DISCOVER_PER_PAGE = 6;
 let notifications = [];
@@ -64,6 +65,46 @@ let activeThreadUnsub = null;
 
 const ROLE_LABELS = { talent: "Talent Provider", seeker: "Talent Seeker" };
 const CAT_COLORS = { tech: "#00d4ff", trade: "#ff5733", health: "#00ff88", agri: "#f5c842", edu: "#c084fc", creative: "#f472b6" };
+
+// Rough central coordinates for major Indian states --- used as fallbacks when a user has not supplied lat/lng
+const STATE_COORDS = {
+  "Maharashtra": [19.7515, 75.7139],
+  "Tamil Nadu": [11.1271, 78.6569],
+  "Karnataka": [15.3173, 75.7139],
+  "Uttar Pradesh": [26.8467, 80.9462],
+  "West Bengal": [22.9868, 87.8550],
+  "Gujarat": [22.2587, 71.1924],
+  "Rajasthan": [27.0238, 74.2179],
+  "Kerala": [10.8505, 76.2711],
+  "Telangana": [18.1124, 79.0193],
+  "Bihar": [25.0961, 85.3131]
+};
+
+function hashString(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (h << 5) - h + str.charCodeAt(i);
+    h |= 0;
+  }
+  return h;
+}
+
+function getCoordsForProfile(p) {
+  if (p?.lat && p?.lng) {
+    const lat = parseFloat(p.lat);
+    const lng = parseFloat(p.lng);
+    if (!Number.isNaN(lat) && !Number.isNaN(lng)) return { lat, lng };
+  }
+
+  const base = STATE_COORDS[p?.state] || [20.5937, 78.9629];
+  const seed = String(p?.id || p?.name || "");
+  const rand = (Math.abs(hashString(seed)) % 1000) / 1000;
+  const jitter = (r) => (r - 0.5) * 1.2; // +/- ~0.6 degrees
+  return {
+    lat: base[0] + jitter(rand),
+    lng: base[1] + jitter((rand * 37) % 1)
+  };
+}
 
 // ===================== HELPERS =====================
 function requireFirebase() {
@@ -109,13 +150,14 @@ function setAuthStatus(msg, type) {
 
 function profileToTalent(p) {
   const location = [p.district, p.state].filter(Boolean).join(", ") || "India";
+  const coords = getCoordsForProfile(p);
   return {
     id: p.id,
     name: p.name || "Unnamed",
     emoji: p.emoji || getAvatarLetter(p.name),
     location,
-    lat: p.lat,
-    lng: p.lng,
+    lat: coords.lat,
+    lng: coords.lng,
     skills: normalizeSkills(p.skills),
     primary: p.primaryRole || (p.role === "talent" ? "Talent Provider" : "Talent Seeker"),
     exp: (p.expYears ?? 0) + " yrs",
@@ -359,6 +401,7 @@ async function loadTalents() {
   renderTalentGrid();
   refreshDashMarkers();
   refreshFullMarkers();
+  refreshHeroMarkers();
 }
 
 async function loadConnections() {
@@ -470,8 +513,21 @@ function addDashMarker(t, map, arr) {
 
 function refreshHeroMarkers() {
   if (!heroMapObj) return;
+  heroMarkers.forEach(m => heroMapObj.removeLayer(m));
+  heroMarkers = [];
+  TALENTS.forEach(t => {
+    if (!t.lat || !t.lng) return;
+    const color = CAT_COLORS[t.category] || "#00d4ff";
+    const marker = L.circleMarker([t.lat, t.lng], {
+      radius: 5,
+      color,
+      weight: 1,
+      fillColor: color,
+      fillOpacity: 0.7
+    }).addTo(heroMapObj).bindPopup(`<strong>${t.name}</strong><br>${t.primary}`);
+    heroMarkers.push(marker);
+  });
 }
-
 function refreshDashMarkers() {
   if (!dashMapObj) return;
   allMarkers.forEach(m => dashMapObj.removeLayer(m));
@@ -530,6 +586,10 @@ function renderTalentGrid(data = TALENTS) {
   const grid = document.getElementById("talentGrid");
   if (!grid) return;
   grid.innerHTML = "";
+  if (!data || data.length === 0) {
+    grid.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text3);font-size:0.9rem">No profiles found yet. Create a profile to get discovered or ask a friend to join.</div>`;
+    return;
+  }
   data.forEach((t, i) => {
     const card = document.createElement("div");
     card.className = "t-card";
@@ -566,6 +626,10 @@ function renderConnections(data) {
   grid.innerHTML = "";
   const countEl = document.getElementById("connCount");
   if (countEl) countEl.textContent = list.length + " connection" + (list.length !== 1 ? "s" : "");
+  if (!list || list.length === 0) {
+    grid.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text3);font-size:0.9rem">No connections yet. Browse talents to connect and start conversations.</div>`;
+    return;
+  }
   list.forEach((t) => {
     const card = document.createElement("div");
     card.className = "t-card";
@@ -649,6 +713,10 @@ function renderChatList(filter = "") {
   if (!list) return;
   list.innerHTML = "";
   const filtered = filter ? conversations.filter(c => c.name.toLowerCase().includes(filter.toLowerCase())) : conversations;
+  if (!filtered || filtered.length === 0) {
+    list.innerHTML = `<div style="padding:30px;text-align:center;color:var(--text3);font-size:0.9rem">No conversations yet. Start a chat by selecting a talent profile.</div>`;
+    return;
+  }
   filtered.forEach(c => {
     const div = document.createElement("div");
     div.className = `chat-item${activeChatId === c.id ? " active" : ""}`;
