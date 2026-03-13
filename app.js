@@ -27,12 +27,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
 const FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyALgzoNFGcK6tLBHuNN9BdZYrzkjW3n_Rw",
+  authDomain: "skillcensus-da56e.firebaseapp.com",
+  projectId: "skillcensus-da56e",
+  storageBucket: "skillcensus-da56e.firebasestorage.app",
+  messagingSenderId: "773504535236",
+  appId: "1:773504535236:web:a09037d27b1f2bf719d791"
 };
 
 const firebaseConfigured = FIREBASE_CONFIG.apiKey && !FIREBASE_CONFIG.apiKey.includes('YOUR_');
