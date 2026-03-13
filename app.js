@@ -175,6 +175,16 @@ function switchAuthTab(tab) {
   document.getElementById('registerTab').classList.toggle('active', tab === 'register');
 }
 
+function setAuthStatus(msg, type) {
+  const el = document.getElementById('authStatus');
+  if (!el) return;
+  el.textContent = msg || '';
+  const t = type || 'info';
+  if (t === 'error') el.style.color = 'var(--accent2)';
+  else if (t === 'success') el.style.color = 'var(--accent3)';
+  else el.style.color = 'var(--text2)';
+}
+
 function showFieldError(inputId) {
   const el = document.getElementById(inputId);
   if (el) { el.classList.add('error'); setTimeout(()=>el.classList.remove('error'),600); }
@@ -200,6 +210,7 @@ function checkPwStrength(v) {
 
 async function handleLogin() {
   if (!requireFirebase()) return;
+  setAuthStatus('Signing in...', 'info');
   const email = document.getElementById('loginEmail').value.trim();
   const pass = document.getElementById('loginPass').value;
   if (!email) { showFieldError('loginEmail'); showToast('Please enter your email','error'); return; }
@@ -209,15 +220,22 @@ async function handleLogin() {
     const res = await signInWithEmailAndPassword(auth, email, pass);
     authUser = res.user;
     await loadCurrentProfile();
-    if (!currentProfile) { showToast('Profile not found. Please complete registration.', 'error'); return; }
+    if (!currentProfile) {
+      await ensureProfileExists(authUser, selectedRole || 'talent');
+      await loadCurrentProfile();
+    }
+    if (!currentProfile) { setAuthStatus('Profile not found. Please try again.', 'error'); showToast('Profile not found. Please complete registration.', 'error'); return; }
+    setAuthStatus('', 'info');
     afterLogin();
   } catch (e) {
+    setAuthStatus(e.message || 'Login failed', 'error');
     showToast(e.message || 'Login failed', 'error');
   }
 }
 
 async function handleRegister() {
   if (!requireFirebase()) return;
+  setAuthStatus('Creating account...', 'info');
   const name = document.getElementById('regName').value.trim();
   const email = document.getElementById('regEmail').value.trim();
   const phone = document.getElementById('regPhone').value.trim();
@@ -261,9 +279,11 @@ async function handleRegister() {
 
     await setDoc(doc(db, 'profiles', authUser.uid), baseProfile);
     await loadCurrentProfile();
+    setAuthStatus('Account created. Signing in...', 'success');
     showToast('Welcome, ' + name + '! Account created.', 'success');
     afterLogin();
   } catch (e) {
+    setAuthStatus(e.message || 'Registration failed', 'error');
     showToast(e.message || 'Registration failed', 'error');
   }
 }
@@ -294,6 +314,44 @@ async function loadCurrentProfile() {
   if (!requireFirebase() || !authUser) return;
   const snap = await getDoc(doc(db, 'profiles', authUser.uid));
   currentProfile = snap.exists() ? snap.data() : null;
+}
+
+async function ensureProfileExists(user, roleFallback) {
+  if (!requireFirebase() || !user) return;
+  const ref = doc(db, 'profiles', user.uid);
+  const snap = await getDoc(ref);
+  if (snap.exists()) return;
+  const name = user.displayName || user.email || 'User';
+  const baseProfile = {
+    id: user.uid,
+    role: roleFallback || 'talent',
+    name,
+    email: user.email || '',
+    phone: '',
+    emoji: getAvatarLetter(name),
+    state: '',
+    district: '',
+    skills: [],
+    primaryRole: 'Professional',
+    expYears: 0,
+    verifyStatus: 'self',
+    avail: 'open',
+    category: 'tech',
+    bio: '',
+    rating: 5.0,
+    views: 0,
+    lat: null,
+    lng: null,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp()
+  };
+  try {
+    await setDoc(ref, baseProfile);
+  } catch (e) {
+    const msg = (e && e.message) ? e.message : 'Unable to create profile';
+    setAuthStatus('Firestore rules may be blocking writes. Enable rules and try again.', 'error');
+    showToast(msg, 'error');
+  }
 }
 
 async function loadTalents() {
@@ -1099,6 +1157,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     authUser = user || null;
     if (authUser) {
       await loadCurrentProfile();
+      if (!currentProfile) {
+        await ensureProfileExists(authUser, 'talent');
+        await loadCurrentProfile();
+      }
       if (currentProfile) {
         await loadDashData();
         showDash();

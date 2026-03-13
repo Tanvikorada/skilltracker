@@ -1,0 +1,35 @@
+﻿rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+
+    match /profiles/{uid} {
+      allow read: if signedIn();
+      allow create, update: if signedIn() && request.auth.uid == uid;
+    }
+
+    match /connections/{connId} {
+      allow read, create, update: if signedIn();
+    }
+
+    match /threads/{threadId} {
+      allow read, create: if signedIn();
+      allow update: if signedIn();
+      match /messages/{msgId} {
+        allow read, create: if signedIn();
+      }
+    }
+
+    match /threadMembers/{memberId} {
+      allow read, create, update: if signedIn();
+    }
+
+    match /notifications/{notifId} {
+      allow read, create, update: if signedIn();
+    }
+
+    match /endorsements/{endorsementId} {
+      allow read, create: if signedIn();
+    }
+  }
+}

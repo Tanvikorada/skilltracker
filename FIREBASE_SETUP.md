@@ -18,3 +18,7 @@ Firestore Collections Used:
 
 Notes:
 - If you use production rules, allow authenticated users to read/write their data.
+
+Firestore Rules (for testing)
+- In Firebase Console -> Firestore -> Rules, paste contents of irestore.rules.
+
