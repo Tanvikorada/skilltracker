@@ -719,7 +719,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
       <!-- LOGIN FORM -->
       <div id="loginForm">
         <div class="auth-form-group">
-          <label class="auth-label">Email or Phone</label>
+          <label class="auth-label">Email</label>
           <input class="auth-input" id="loginEmail" type="text" placeholder="you@example.com">
         </div>
         <div class="auth-form-group">
@@ -727,9 +727,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           <input class="auth-input" id="loginPass" type="password" placeholder="">
         </div>
         <button class="auth-submit" onclick="handleLogin()">Sign In </button>
-        <div class="auth-divider" id="demoDivider" style="display:none">or</div>
-        <button class="btn-ghost" id="demoBtn" style="width:100%;padding:11px;margin-bottom:8px;display:none" onclick="loadSampleData()"> Load Sample Data</button>
-        <div class="auth-note">Don't have an account" <a onclick="switchAuthTab('register')">Create one free </a></div>
+        <div class="auth-divider">or</div>
+        <button class="btn-ghost" style="width:100%;padding:11px;margin-bottom:8px" onclick="handleGoogleLogin()">Continue with Google</button>
+        <div class="auth-note">Don't have an account? <a onclick="switchAuthTab('register')">Create one free</a></div>
       </div>
 
       <!-- REGISTER FORM -->
@@ -786,7 +786,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
           <div class="field-error" id="errRegPass"></div>
         </div>
         <button class="auth-submit" onclick="handleRegister()">Create Account </button>
-        <div class="auth-note">Already have an account" <a onclick="switchAuthTab('login')">Sign in </a></div>
+        <div class="auth-note">Already have an account? <a onclick="switchAuthTab('login')">Sign in</a></div>
       </div>
     </div>
   </div>

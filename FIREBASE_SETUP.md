@@ -1,24 +1,18 @@
-﻿# Firebase Setup
+# Firebase Setup (Realtime Database)
 
 1. Create a Firebase project.
-2. Go to Build -> Authentication and enable Email/Password.
-3. Go to Build -> Firestore Database and create a database in production or test mode.
-4. In Project Settings -> General, add a Web App and copy the Firebase config.
-5. Paste the config values into `app.js` under `FIREBASE_CONFIG`.
-6. Deploy on Vercel.
-
-Firestore Collections Used:
-- profiles (doc id = uid)
-- connections (doc id = userId_targetId)
-- threads (doc id auto, fields include pairKey)
-- threadMembers (doc id = threadId_userId)
-- threads/{threadId}/messages
-- notifications
-- endorsements
+2. Build -> Authentication -> Sign-in method:
+   - Enable Email/Password.
+   - Enable Google.
+3. Build -> Realtime Database -> Create Database (Start in locked mode).
+4. Go to Project Settings -> General -> Your apps -> Web app.
+   - Copy the Firebase config and paste into `app.js` as `FIREBASE_CONFIG`.
+   - Set `databaseURL` to your Realtime Database URL.
+5. In Authentication -> Settings -> Authorized domains:
+   - Add `localhost` for local testing.
+   - Add your Vercel domain after deploy.
+6. In Realtime Database -> Rules, paste the contents of `rtdb.rules`.
 
 Notes:
-- If you use production rules, allow authenticated users to read/write their data.
-
-Firestore Rules (for testing)
-- In Firebase Console -> Firestore -> Rules, paste contents of irestore.rules.
-
+- Run the site from a local server (not `file://`). Example: `python -m http.server 8080`.
+- Email/password and Google sign-in both require a real HTTP/HTTPS origin.

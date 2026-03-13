@@ -1,0 +1,57 @@
+{
+  "rules": {
+    "profiles": {
+      "$uid": {
+        ".read": true,
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "connections": {
+      "$uid": {
+        "$targetId": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && auth.uid === $uid"
+        }
+      }
+    },
+    "threads": {
+      ".indexOn": ["pairKey", "updatedAt"],
+      "$threadId": {
+        ".read": "auth != null && (data.child('user1').val() === auth.uid || data.child('user2').val() === auth.uid)",
+        ".write": "auth != null && (!data.exists() || data.child('user1').val() === auth.uid || data.child('user2').val() === auth.uid)"
+      }
+    },
+    "userThreads": {
+      "$uid": {
+        "$threadId": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && auth.uid === $uid"
+        }
+      }
+    },
+    "threadMembers": {
+      "$threadId": {
+        "$uid": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && auth.uid === $uid"
+        }
+      }
+    },
+    "messages": {
+      "$threadId": {
+        ".read": "auth != null && (root.child('threads').child($threadId).child('user1').val() === auth.uid || root.child('threads').child($threadId).child('user2').val() === auth.uid)",
+        "$msgId": {
+          ".write": "auth != null && newData.child('senderId').val() === auth.uid && (root.child('threads').child($threadId).child('user1').val() === auth.uid || root.child('threads').child($threadId).child('user2').val() === auth.uid)"
+        }
+      }
+    },
+    "notifications": {
+      "$uid": {
+        "$notifId": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null"
+        }
+      }
+    }
+  }
+}
