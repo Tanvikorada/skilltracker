@@ -224,7 +224,7 @@ async function handleLogin() {
     }
     if (!currentProfile) { setAuthStatus("Profile not found. Please try again.", "error"); return; }
     setAuthStatus("", "info");
-    afterLogin();
+    await afterLogin();
   } catch (e) {
     setAuthStatus(e.message || "Login failed", "error");
     showToast(e.message || "Login failed", "error");
@@ -254,7 +254,7 @@ async function handleRegister() {
     await loadCurrentProfile();
     setAuthStatus("Account created. Signing in...", "success");
     showToast("Welcome, " + name + "! Account created.", "success");
-    afterLogin();
+    await afterLogin();
   } catch (e) {
     setAuthStatus(e.message || "Registration failed", "error");
     showToast(e.message || "Registration failed", "error");
@@ -273,7 +273,7 @@ async function handleGoogleLogin() {
       await loadCurrentProfile();
     }
     setAuthStatus("", "info");
-    afterLogin();
+    await afterLogin();
   } catch (e) {
     setAuthStatus(e.message || "Google sign-in failed", "error");
     showToast(e.message || "Google sign-in failed", "error");
@@ -288,7 +288,12 @@ async function afterLogin() {
   document.getElementById("sidebarAvatar").textContent = currentProfile.emoji || getAvatarLetter(currentProfile.name);
   document.getElementById("topbarUser").textContent = "Welcome, " + (currentProfile.name || "").split(" ")[0];
   showToast("Signed in as " + (currentProfile.name || "User"), "success");
-  await loadDashData();
+  try {
+    await loadDashData();
+  } catch (e) {
+    showToast("Signed in, but data failed to load. Check RTDB rules.", "error");
+    console.error(e);
+  }
   showDash();
 }
 
